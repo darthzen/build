@@ -1,0 +1,249 @@
+[$ClassProvider$]
+   provider: ClassProvider
+   location: sfcClassProviderGz
+   type: class method
+   unload: never
+   namespace: *
+   parameters: cacheLimit=10
+#
+[$DefaultProvider$]
+   provider: InternalProvider
+   location: sfcInternalProvider
+   type: instance association method
+   unload: never
+   namespace: *
+#
+[$InterOpProvider$]
+   provider: InteropProvider
+   location: sfcInteropProvider
+   type: instance method
+   unload: never
+   namespace: root/interop
+#
+[$ProfileProvider$]
+   provider: ProfileProvider
+   location: sfcProfileProvider
+   type: instance method
+   unload: never
+   namespace: root/interop
+#
+[$QualifierProvider$]
+   provider: QualifierProvider
+   location: sfcQualifierProvider
+   type: qualifier
+   unload: never
+   namespace: *
+#
+[CIM_IndicationHandlerCIMXML]
+   provider: IndCIMXMLHandler
+   location: sfcIndCIMXMLHandler
+   type: instance method
+   namespace: root/interop
+#
+[CIM_ListenerDestinationCIMXML]
+   provider: IndCIMXMLHandler
+   location: sfcIndCIMXMLHandler
+   type: instance method
+   namespace: root/interop
+#
+[CIM_IndicationSubscription]
+   provider: InteropProvider
+   location: sfcInteropProvider
+   type: instance method
+   namespace: root/interop
+#
+[CIM_IndicationFilter]
+   provider: InteropProvider
+   location: sfcInteropProvider
+   type: instance method
+   namespace: root/interop
+#
+[SFCB_IndicationServiceCapabilities]
+   provider: ServerProvider
+   location: sfcInteropServerProvider
+   type: instance
+   namespace: root/interop
+#
+[SFCB_ElementCapabilities]
+   provider: ElementCapabilities
+   location: sfcElementCapabilitiesProvider
+   type: association
+   namespace: root/interop
+#
+[SFCB_RegisteredProfile]
+   provider: ProfileProvider
+   location: sfcProfileProvider
+   type: instance
+   unload: never
+   namespace: root/interop
+#
+[CIM_Namespace]
+   provider: ServerProvider
+   location: sfcInteropServerProvider
+   type: instance
+   namespace: root/interop
+#
+[__Namespace]
+   provider: ServerProvider
+   location: sfcInteropServerProvider
+   type: instance
+   namespace: *
+#
+[CIM_ObjectManager]
+   provider: ServerProvider
+   location: sfcInteropServerProvider
+   type: instance
+   namespace: root/interop
+#
+[CIM_ObjectManagerCommunicationMechanism]
+   provider: ServerProvider
+   location: sfcInteropServerProvider
+   type: instance
+   namespace: root/interop
+#
+[CIM_IndicationService]
+   provider: ServerProvider
+   location: sfcInteropServerProvider
+   type: instance
+   namespace: root/interop
+#
+[SFCB_ServiceAffectsElement]
+   provider: ServerProvider
+   location: sfcInteropServerProvider
+   type: instance association
+   namespace: root/interop
+#
+[CIM_HostedService]
+   provider: ServerProvider
+   location: sfcInteropServerProvider
+   type: instance association
+   namespace: root/interop
+#
+[CIM_ElementConformsToProfile]
+   provider: ServerProvider
+   location: sfcInteropServerProvider
+   type: instance association
+   namespace: root/interop
+#
+[SFCB_IndicationElement]
+   provider: InternalProvider
+   location: sfcInternalProvider
+   type: instance method association
+   unload: never
+   namespace: root/interop
+#
+
+[Linux_Processor]   
+   provider: OSBase_ProcessorProvider
+   location: cmpiOSBase_ProcessorProvider
+   type: instance method
+   namespace: root/cimv2
+#
+[Linux_UnixProcess]   
+   provider: OSBase_UnixProcessProvider
+   location: cmpiOSBase_UnixProcessProvider
+   type: instance method
+   namespace: root/cimv2
+#
+[Linux_ComputerSystem]   
+   provider: OSBase_ComputerSystemProvider
+   location: cmpiOSBase_ComputerSystemProvider
+   type: instance method
+   namespace: root/cimv2
+#
+[Linux_OperatingSystem]   
+   provider: OSBase_OperatingSystemProvider
+   location: cmpiOSBase_OperatingSystemProvider
+   type: instance method
+   namespace: root/cimv2
+#
+[Linux_OperatingSystemStatisticalData]   
+   provider: OSBase_OperatingSystemStatisticalDataProvider
+   location: cmpiOSBase_OperatingSystemStatisticalDataProvider
+   type: instance method
+   namespace: root/cimv2
+#
+[Linux_BaseBoard]   
+   provider: OSBase_BaseBoardProvider
+   location: cmpiOSBase_BaseBoardProvider
+   type: instance method
+   namespace: root/cimv2
+#
+[Linux_RunningOS]   
+   provider: OSBase_RunningOSProvider
+   location: cmpiOSBase_RunningOSProvider
+   type: instance association
+   namespace: root/cimv2
+#
+[Linux_OSProcess]   
+   provider: OSBase_OSProcessProvider
+   location: cmpiOSBase_OSProcessProvider
+   type: instance association
+   namespace: root/cimv2
+#
+[Linux_OperatingSystemStatistics]   
+   provider: OSBase_OperatingSystemStatisticsProvider
+   location: cmpiOSBase_OperatingSystemStatisticsProvider
+   type: instance association
+   namespace: root/cimv2
+#
+[Linux_CSProcessor]   
+   provider: OSBase_CSProcessorProvider
+   location: cmpiOSBase_CSProcessorProvider
+   type: instance association
+   namespace: root/cimv2
+#
+[Linux_CSBaseBoard]   
+   provider: OSBase_CSBaseBoardProvider
+   location: cmpiOSBase_CSBaseBoardProvider
+   type: instance association
+   namespace: root/cimv2
+#
+[Linux_OperatingSystemIndication]   
+   provider: OSBase_OperatingSystemProvider
+   location: cmpiOSBase_OperatingSystemProvider
+   type: indication
+   namespace: root/cimv2
+#
+[CIM_InstModification]   
+   provider: OSBase_OperatingSystemProvider
+   location: cmpiOSBase_OperatingSystemProvider
+   type: indication method
+   namespace: root/cimv2
+#
+[Linux_NFSv3SystemConfiguration]   
+   provider: Linux_NFSv3SystemConfiguration
+   location: Linux_NFSv3SystemConfiguration
+   type: instance
+   namespace: root/cimv2
+#
+[Linux_NFSv3SettingContext]   
+   provider: Linux_NFSv3SettingContext
+   location: Linux_NFSv3SettingContext
+   type: instance association
+   namespace: root/cimv2
+#
+[Linux_NFSv3SystemSetting]   
+   provider: Linux_NFSv3SystemSetting
+   location: Linux_NFSv3SystemSetting
+   type: instance
+   namespace: root/cimv2
+#
+[Linux_NFSv4SystemSetting]   
+   provider: Linux_NFSv4SystemSetting
+   location: Linux_NFSv4SystemSetting
+   type: instance
+   namespace: root/cimv2
+#
+[Linux_NFSv4SystemConfiguration]   
+   provider: Linux_NFSv4SystemConfiguration
+   location: Linux_NFSv4SystemConfiguration
+   type: instance
+   namespace: root/cimv2
+#
+[Linux_NFSv4SettingContext]   
+   provider: Linux_NFSv4SettingContext
+   location: Linux_NFSv4SettingContext
+   type: instance association
+   namespace: root/cimv2
+#

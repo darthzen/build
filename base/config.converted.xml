@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<image schemaversion="6.2" name="base-server">
+    <description type="system">
+        <author>Machinery</author>
+        <contact/>
+        <specification>Description of system 'admin' exported by Machinery</specification>
+    </description>
+    <preferences>
+        <packagemanager>zypper</packagemanager>
+        <version>0.0.1</version>
+        <type image="oem" installiso="true" hybrid="true" boot="oemboot/suse-SLES12" filesystem="btrfs" installboot="install" bootloader="grub2" fsnocheck="true">
+            <oemconfig>
+                <oem-swap>true</oem-swap>
+                <oem-swapsize>2048</oem-swapsize>
+<!-- If unspecified, will take rest of the disk
+        <oem-systemsize>8192</oem-systemsize>
+        -->
+                <oem-unattended>true</oem-unattended>
+                <oem-skip-verify>true</oem-skip-verify>
+                <oem-recovery>false</oem-recovery>
+                <oem-reboot>false</oem-reboot>
+            </oemconfig>
+            <systemdisk name="root">
+                <volume name="opt" mountpoint="/var/opt"/>
+                <volume name="log" mountpoint="/var/log"/>
+                <volume name="pgsql" mountpoint="/var/lib/pgsql"/>
+                <volume name="mailman" mountpoint="/var/lib/mailman"/>
+                <volume name="named" mountpoint="/var/lib/named"/>
+                <volume name="crash" mountpoint="/var/crash"/>
+                <volume name="vartmp" mountpoint="/var/tmp"/>
+                <volume name="spool" mountpoint="/var/spool"/>
+                <volume name="local" mountpoint="/usr/local"/>
+                <volume name="tmp" mountpoint="/tmp"/>
+                <volume name="srv" mountpoint="/srv"/>
+                <volume name="home" mountpoint="/home"/>
+                <volume name="snapshots" mountpoint="/.snapshots"/>
+                <volume name="efi" mountpoint="/boot/grub2/x86_64-efi"/>
+                <volume name="pc" mountpoint="/boot/grub2/i386-pc"/>
+            </systemdisk>
+        </type>
+        <type primary="true" image="vmx" filesystem="btrfs" boot="suse-SLE12-JeOS" format="qcow2" bootloader="grub2" fsnocheck="true">
+            <systemdisk name="root">
+                <volume name="opt" mountpoint="/var/opt"/>
+                <volume name="log" mountpoint="/var/log"/>
+                <volume name="pgsql" mountpoint="/var/lib/pgsql"/>
+                <volume name="mailman" mountpoint="/var/lib/mailman"/>
+                <volume name="named" mountpoint="/var/lib/named"/>
+                <volume name="crash" mountpoint="/var/crash"/>
+                <volume name="vartmp" mountpoint="/var/tmp"/>
+                <volume name="spool" mountpoint="/var/spool"/>
+                <volume name="local" mountpoint="/usr/local"/>
+                <volume name="tmp" mountpoint="/tmp"/>
+                <volume name="srv" mountpoint="/srv"/>
+                <volume name="home" mountpoint="/home"/>
+                <volume name="snapshots" mountpoint="/.snapshots"/>
+                <volume name="efi" mountpoint="/boot/grub2/x86_64-efi"/>
+                <volume name="pc" mountpoint="/boot/grub2/i386-pc"/>
+            </systemdisk>
+        </type>
+        <type image="docker" container="os131">
+            <machine>
+                <vmdisk/>
+                <vmnic interface="eth0" mode="veth"/>
+            </machine>
+        </type>
+        <type image="pxe" filesystem="overlayfs" boot="suse-SLE12-JeOS" format="raw" bootloader="grub2" fsnocheck="true">
+            <pxedeploy server="192.168.13.4" blocksize="4096">
+                <timeout>5</timeout>
+                <kernel>kernel</kernel>
+                <initrd>initrd</initrd>
+                <partitions device="/dev/sda">
+                    <partition type="swap" number="1"/>
+<!--
+          <partition type="L" number="2" size="MB" mountpoint="/" target="true"/> 
+          <partition type="fd"  number="3"/> 
+-->
+                </partitions>
+<!--
+        <union ro="dev" rw="dev" type="overlayfs"/> 
+-->
+<!--
+        <configuration source="/KIWI/../file" dest="/../file" arch="..."/>
+        <configuration .../> 
+-->
+            </pxedeploy>
+        </type>
+    </preferences>
+    <users group="root">
+        <user password="$1$wYJUgpM5$RXMMeASDc035eX.NbYWFl0" home="/root" name="root"/>
+    </users>
+    <repository alias="SLES12" type="yast2" priority="99">
+        <source path="http://192.168.124.1/install/SLES12-x86_64"/>
+    </repository>
+    <repository alias="SLES12-Pool" type="rpm-md" priority="99">
+        <source path="http://192.168.124.1/repo/SUSE/Products/SLE-SERVER/12/x86_64/product"/>
+    </repository>
+    <repository alias="SLES12-Updates" type="rpm-md" priority="98">
+        <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-SERVER/12/x86_64/update"/>
+    </repository>
+    <repository alias="SLES12-Public-Cloud" type="rpm-md" priority="99">
+        <source path="http://192.168.124.1/repo/SUSE/Products/SLE-Module-Public-Cloud/12/x86_64/product"/>
+    </repository>
+    <repository alias="SLES12-Public-Cloud-Updates" type="rpm-md" priority="98">
+        <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-Module-Public-Cloud/12/x86_64/update"/>
+    </repository>
+    <packages type="bootstrap">
+        <package name="grub2"/>
+        <package name="open-vm-tools"/>
+        <package name="cloud-init"/>
+        <namedCollection name="Minimal"/>
+    </packages>
+</image>

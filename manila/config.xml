@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<image schemaversion="6.2" name="manila">
+  <description type="system">
+    <author>Rick Ashford</author>
+    <contact>rick.ashford@suse.com</contact>
+    <specification>Manila instance image for NFS</specification>
+  </description>
+  <preferences>
+    <packagemanager>zypper</packagemanager>
+    <version>1.0.0</version>
+    <type primary="true" image="vmx" filesystem="btrfs" boot="vmxboot/suse-SLES12" format="qcow2" bootloader="grub2" fsnocheck="true" bootpartition='false'>
+      <systemdisk name="root">
+        <volume name="opt" mountpoint="/var/opt"/>
+        <volume name="log" mountpoint="/var/log"/>
+        <volume name="pgsql" mountpoint="/var/lib/pgsql"/>
+        <volume name="mailman" mountpoint="/var/lib/mailman"/>
+        <volume name="named" mountpoint="/var/lib/named"/>
+        <volume name="crash" mountpoint="/var/crash"/>
+        <volume name="vartmp" mountpoint="/var/tmp"/>
+        <volume name="spool" mountpoint="/var/spool"/>
+        <volume name="local" mountpoint="/usr/local"/>
+        <volume name="tmp" mountpoint="/tmp"/>
+        <volume name="srv" mountpoint="/srv"/>
+        <volume name="home" mountpoint="/home"/>
+        <volume name="snapshots" mountpoint="/.snapshots"/>
+        <volume name="efi" mountpoint="/boot/grub2/x86_64-efi"/>
+        <volume name="pc" mountpoint="/boot/grub2/i386-pc"/>
+      </systemdisk>
+    </type>
+    <type image="docker" container="os131">
+      <machine>
+        <vmdisk/>
+        <vmnic interface="eth0" mode="veth"/>
+      </machine>
+    </type>
+  </preferences>
+  <users group="root">
+    <user password="$1$wYJUgpM5$RXMMeASDc035eX.NbYWFl0" home="/root" name="root"/>
+  </users>
+  <repository alias="SLES12-SP1" type="yast2" priority="99">
+    <source path="http://192.168.124.1/install/SLES12-SP1-x86_64"/>
+  </repository>
+  <repository alias="SLES12-SP1-Pool" type="rpm-md" priority="99">
+    <source path="http://192.168.124.1/repo/SUSE/Products/SLE-SERVER/12-SP1/x86_64/product"/>
+  </repository>
+  <repository alias="SLES12-Updates" type="rpm-md" priority="98">
+    <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-SERVER/12-SP1/x86_64/update"/>
+  </repository>
+  <repository alias="SLES12-Public-Cloud" type="rpm-md" priority="99">
+    <source path="http://192.168.124.1/repo/SUSE/Products/SLE-Module-Public-Cloud/12/x86_64/product"/>
+  </repository>
+  <repository alias="SLES12-Public-Cloud-Updates" type="rpm-md" priority="98">
+    <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-Module-Public-Cloud/12/x86_64/update"/>
+  </repository>
+  <packages type="bootstrap">
+    <package name="grub2"/>
+    <namedCollection name="Minimal"/>
+  </packages>
+  <packages type="image">
+    <package name="open-vm-tools"/>
+    <package name="cloud-init"/>
+    <package name="nfs-kernel-server"/>
+    <package name="samba"/>
+    <package name="syslinux"/>
+    <package name="kexec-tools"/>
+  </packages>
+</image>

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<image schemaversion="5.8" name="admin">
+    <description type="system">
+        <author>Machinery</author>
+        <contact/>
+        <specification>Description of system 'admin' exported by Machinery</specification>
+    </description>
+    <profiles>
+        <profile name="docker" description="Docker image"/>
+    </profiles>
+    <preferences>
+        <packagemanager>zypper</packagemanager>
+        <version>0.0.1</version>
+        <type primary="true" image='oem' installiso="true" hybrid="true" boot='oemboot/suse-SLES12' filesystem='btrfs' installboot='install' bootloader='grub2' fsnocheck='true'>
+    <oemconfig>
+        <oem-boot-title>SUSE OpenStack Cloud 6 Admin Template</oem-boot-title>
+        <oem-bootwait>true</oem-bootwait>
+        <oem-silent-boot>false</oem-silent-boot>
+        <oem-swap>true</oem-swap>
+        <oem-swapsize>2048</oem-swapsize>
+        <oem-unattended>true</oem-unattended>
+        <oem-skip-verify>true</oem-skip-verify>
+        <oem-recovery>false</oem-recovery>
+        <oem-reboot>false</oem-reboot>
+    </oemconfig>
+</type>
+  </preferences>
+  <preferences profiles="docker">
+      <type image="docker" container="system">
+          <machine>
+              <vmnic interface="0" mode="veth"/>
+              <vmdisk/>
+          </machine>
+      </type>
+  </preferences>
+  <users group="root">
+      <user password="$1$wYJUgpM5$RXMMeASDc035eX.NbYWFl0" home="/root" name="root"/>
+  </users>
+  <repository alias="SLES12-SP1" type="yast2" priority="99">
+      <source path="http://192.168.124.1/install/SLES12-SP1-x86_64"/>
+  </repository>
+  <repository alias="SLES12-SP1-Pool" type="rpm-md" priority="99">
+      <source path="http://192.168.124.1/repo/SUSE/Products/SLE-SERVER/12-SP1/x86_64/product"/>
+  </repository>
+  <repository alias="SLES12-SP1-Updates" type="rpm-md" priority="98">
+      <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-SERVER/12-SP1/x86_64/update"/>
+  </repository>
+  <repository alias="SUSE-Cloud-6" type="yast2" priority="97">
+      <source path="http://192.168.124.1/install/SUSE-Cloud-6"/>
+  </repository>
+  <repository alias="SUSE-Cloud-6-Updates" type="rpm-md" priority="96">
+      <source path="http://192.168.124.1/repo/SUSE/Updates/OpenStack-Cloud/6/x86_64/update"/>
+  </repository>
+  <repository alias="SLE-Manager-Tools" type="rpm-md" priority="96">
+      <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-Manager-Tools/12/x86_64/update"/>
+  </repository>
+  <packages type="oem">
+      <package name="kernel-default"/>
+      <package name="grub2"/>
+  </packages>
+  <packages type="bootstrap">
+      <package name="grub2"/>
+      <package name="nfs-client"/>
+      <package name="open-vm-tools"/>
+      <package name="network-autoconfig"/>
+      <package name="autoyast2"/>
+      <package name="autoyast2-installation"/>
+      <package name="yast2-ncurses"/>
+      <package name="yast2-sysconfig"/>
+      <package name="yast2-network"/>
+      <package name="patterns-cloud-admin"/>
+      <package name="sqlite3"/>
+      <package name="rsync"/>
+      <package name="openssh"/>
+      <package name="salt-minion"/>
+      <namedCollection name="Minimal"/>
+  </packages>
+<!--
+  <packages type="image">
+    <archive name="kiwi-hooks.tgz" bootinclude="true"/>
+  </packages>
+-->
+</image>

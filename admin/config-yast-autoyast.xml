@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
+  <deploy_image>
+    <image_installation config:type="boolean">false</image_installation>
+  </deploy_image>
+  <host>
+    <hosts config:type="list">
+      <hosts_entry>
+        <host_address>127.0.0.1</host_address>
+        <names config:type="list">
+          <name>localhost</name>
+        </names>
+      </hosts_entry>
+      <hosts_entry>
+        <host_address>192.168.124.1</host_address>
+        <names config:type="list">
+          <name>stacktop.admin.com stacktop salt</name>
+        </names>
+      </hosts_entry>
+      <hosts_entry>
+        <host_address>192.168.124.10</host_address>
+        <names config:type="list">
+          <name>admin.ash4d.com admin</name>
+        </names>
+      </hosts_entry>
+      <hosts_entry>
+        <names config:type="list">
+          <name>stacktop.ash4d.com stacktop</name>
+        </names>
+      </hosts_entry>
+    </hosts>
+  </host>
+  <networking>
+    <dhcp_options>
+      <dhclient_client_id/>
+      <dhclient_hostname_option/>
+    </dhcp_options>
+    <dns>
+      <dhcp_hostname config:type="boolean">false</dhcp_hostname>
+      <domain>ash4d.com</domain>
+      <hostname>admin</hostname>
+      <nameservers config:type="list">
+        <nameserver>192.168.124.2</nameserver>
+      </nameservers>
+      <resolv_conf_policy>auto</resolv_conf_policy>
+      <searchlist config:type="list">
+        <search>ash4d.com</search>
+      </searchlist>
+      <write_hostname config:type="boolean">false</write_hostname>
+    </dns>
+    <interfaces config:type="list">
+      <interface>
+        <bootproto>static</bootproto>
+        <device>eth0</device>
+        <ipaddr>192.168.124.10</ipaddr>
+        <netmask>255.255.255.0</netmask>
+        <startmode>auto</startmode>
+      </interface>
+    </interfaces>
+    <ipv6 config:type="boolean">false</ipv6>
+    <keep_install_network config:type="boolean">false</keep_install_network>
+    <managed config:type="boolean">false</managed>
+    <routing>
+      <ipv4_forward config:type="boolean">false</ipv4_forward>
+      <ipv6_forward config:type="boolean">false</ipv6_forward>
+      <routes config:type="list">
+        <route>
+          <destination>default</destination>
+          <device>-</device>
+          <gateway>192.168.124.2</gateway>
+          <netmask>-</netmask>
+        </route>
+      </routes>
+    </routing>
+  </networking>
+  <services-manager>
+    <default_target>multi-user</default_target>
+    <services>
+      <enable config:type="list">
+        <service>sshd</service>
+        <service>salt-minion</service>
+      </enable>
+    </services>
+  </services-manager>
+</profile>
