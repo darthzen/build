@@ -17,4 +17,6 @@ echo "192.168.124.1:/exports/msata/smt /srv/www/htdocs/repo nfs ro 1 2" >> /etc/
 
 systemctl enable sshd
 
+mkdir -p /.snapshots /boot/grub2/{x86_64-efi,i386-pc} /var/{opt,log,lib,crash,tmp,spool} /var/lib/{pgsql,mailman,named} /tmp /srv /home
+
 exit 0

@@ -1,75 +1,79 @@
 <?xml version="1.0"?>
-<image schemaversion="5.8" name="admin">
-    <description type="system">
-        <author>Machinery</author>
-        <contact/>
-        <specification>Description of system 'admin' exported by Machinery</specification>
-    </description>
-    <profiles>
-        <profile name="docker" description="Docker image"/>
-    </profiles>
-    <preferences>
-        <packagemanager>zypper</packagemanager>
-        <version>7.0.1</version>
-        <type primary="true" image='oem' installiso="true" hybrid="true" boot='oemboot/suse-SLES12' filesystem='btrfs' installboot='install' bootloader='grub2' fsnocheck='true'>
-            <oemconfig>
-                <oem-boot-title>SUSE OpenStack Cloud 7 Admin Template</oem-boot-title>
-                <oem-bootwait>true</oem-bootwait>
-                <oem-silent-boot>false</oem-silent-boot>
-                <oem-swap>true</oem-swap>
-                <oem-swapsize>2048</oem-swapsize>
-                <oem-unattended>true</oem-unattended>
-                <oem-skip-verify>true</oem-skip-verify>
-                <oem-recovery>false</oem-recovery>
-                <oem-reboot>false</oem-reboot>
-            </oemconfig>
-        </type>
+<image name="admin" schemaversion="6.2">
+  <description type="system">
+    <author>Rick Ashford</author>
+    <contact>rick.ashford@suse.com</contact>
+    <specification>Template image for SUSE OpenStack Cloud 7 installations</specification>
+  </description>
+  <preferences>
+    <defaultdestination>/tmp</defaultdestination>
+    <packagemanager>zypper</packagemanager>
+    <timezone>America/Chicago</timezone>
+    <type boot="oemboot/suse-SLES12" bootloader="grub2" bootpartition="false" filesystem="btrfs" fsnocheck="true" hybrid="true" image="oem" installboot="install" installiso="true" primary="true">
+      <oemconfig>
+        <oem-boot-title>SUSE OpenStack Cloud 7 Admin Template</oem-boot-title>
+        <oem-bootwait>false</oem-bootwait>
+        <oem-reboot>false</oem-reboot>
+        <oem-recovery>false</oem-recovery>
+        <oem-silent-boot>false</oem-silent-boot>
+        <oem-skip-verify>true</oem-skip-verify>
+        <oem-swap>true</oem-swap>
+        <oem-swapsize>4096</oem-swapsize>
+        <oem-unattended>true</oem-unattended>
+      </oemconfig>
+      <size additive="true" unit="M">10</size>
+      <systemdisk name="root">
+        <volume mountpoint="/var/opt" name="opt"/>
+        <volume mountpoint="/var/log" name="log"/>
+        <volume mountpoint="/var/lib/pgsql" name="pgsql"/>
+        <volume mountpoint="/var/lib/mailman" name="mailman"/>
+        <volume mountpoint="/var/lib/named" name="named"/>
+        <volume mountpoint="/var/crash" name="crash"/>
+        <volume mountpoint="/var/tmp" name="vartmp"/>
+        <volume mountpoint="/var/spool" name="spool"/>
+        <volume mountpoint="/usr/local" name="local"/>
+        <volume mountpoint="/tmp" name="tmp"/>
+        <volume mountpoint="/srv" name="srv"/>
+        <volume mountpoint="/home" name="home"/>
+        <volume mountpoint="/.snapshots" name="snapshots"/>
+        <volume mountpoint="/boot/grub2/x86_64-efi" name="efi"/>
+        <volume mountpoint="/boot/grub2/i386-pc" name="pc"/>
+      </systemdisk>
+    </type>
+    <version>7.0.1</version>
   </preferences>
   <users group="root">
-      <user password="$1$wYJUgpM5$RXMMeASDc035eX.NbYWFl0" home="/root" name="root"/>
+    <user home="/root" name="root" password="dxjMinTdV3Tqo"/>
   </users>
-  <repository alias="SLES12-SP2" type="yast2" priority="99">
-      <source path="http://192.168.124.1/install/SLES12-SP2-x86_64"/>
+  <repository alias="SLES12-SP2" priority="99" type="yast2">
+    <source path="http://192.168.124.1/install/SLES12-SP2-x86_64"/>
   </repository>
-  <repository alias="SLES12-SP2-Pool" type="rpm-md" priority="99">
-      <source path="http://192.168.124.1/repo/SUSE/Products/SLE-SERVER/12-SP2/x86_64/product"/>
+  <repository alias="SUSE-Cloud-7" priority="97" type="yast2">
+    <source path="http://192.168.124.1/install/SUSE-Cloud-7"/>
   </repository>
-  <repository alias="SLES12-SP2-Updates" type="rpm-md" priority="98">
-      <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-SERVER/12-SP2/x86_64/update"/>
-  </repository>
-  <repository alias="SUSE-Cloud-7" type="yast2" priority="97">
-      <source path="http://192.168.124.1/install/SUSE-Cloud-7"/>
-  </repository>
-  <repository alias="SUSE-Cloud-7-Updates" type="rpm-md" priority="96">
-      <source path="http://192.168.124.1/repo/SUSE/Updates/OpenStack-Cloud/7/x86_64/update"/>
-  </repository>
-  <repository alias="SLE-Manager-Tools" type="rpm-md" priority="96">
-      <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-Manager-Tools/12/x86_64/update"/>
+  <repository alias="SLE-Manager-Tools" priority="96" type="rpm-md">
+    <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-Manager-Tools/12/x86_64/update"/>
   </repository>
   <packages type="oem">
-      <package name="kernel-default"/>
-      <package name="grub2"/>
+    <package name="kernel-default"/>
+    <package name="grub2"/>
   </packages>
   <packages type="bootstrap">
-      <package name="grub2"/>
-      <package name="nfs-client"/>
-      <package name="open-vm-tools"/>
-      <package name="network-autoconfig"/>
-      <package name="autoyast2"/>
-      <package name="autoyast2-installation"/>
-      <package name="yast2-ncurses"/>
-      <package name="yast2-sysconfig"/>
-      <package name="yast2-network"/>
-      <package name="patterns-cloud-admin"/>
-      <package name="sqlite3"/>
-      <package name="rsync"/>
-      <package name="openssh"/>
-      <package name="salt-minion"/>
-      <namedCollection name="Minimal"/>
+    <namedCollection name="Minimal"/>
+    <package name="grub2"/>
+    <package name="nfs-client"/>
+    <package name="open-vm-tools"/>
+    <package name="network-autoconfig"/>
+    <package name="autoyast2"/>
+    <package name="autoyast2-installation"/>
+    <package name="yast2-ncurses"/>
+    <package name="yast2-sysconfig"/>
+    <package name="yast2-network"/>
+    <package name="patterns-cloud-admin"/>
+    <package name="sqlite3"/>
+    <package name="rsync"/>
+    <package name="openssh"/>
+    <package name="salt-minion"/>
   </packages>
-<!--
-  <packages type="image">
-    <archive name="kiwi-hooks.tgz" bootinclude="true"/>
-  </packages>
--->
+  <packages type="delete"/>
 </image>
