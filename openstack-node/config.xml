@@ -9,7 +9,7 @@
     <defaultdestination>/tmp</defaultdestination>
     <packagemanager>zypper</packagemanager>
     <timezone>America/Chicago</timezone>
-    <type boot="oemboot/suse-SLES12" bootloader="grub2" bootpartition="false" filesystem="btrfs" fsnocheck="true" hybrid="true" image="oem" installboot="install" installiso="true" primary="true">
+    <type boot="oemboot/suse-SLES12" bootloader="grub2" bootpartition="false" filesystem="ext4" fsnocheck="true" hybrid="true" image="oem" installboot="install" installiso="true" primary="true">
       <oemconfig>
         <oem-boot-title>SUSE OpenStack Cloud 7 Compute Node</oem-boot-title>
         <oem-bootwait>false</oem-bootwait>
@@ -21,23 +21,6 @@
         <oem-swapsize>4096</oem-swapsize>
         <oem-unattended>true</oem-unattended>
       </oemconfig>
-      <systemdisk name="root">
-        <volume name="opt"/>
-        <volume name="log"/>
-        <volume name="pgsql"/>
-        <volume name="mailman"/>
-        <volume name="named"/>
-        <volume name="crash"/>
-        <volume name="vartmp"/>
-        <volume name="spool"/>
-        <volume name="local"/>
-        <volume name="tmp"/>
-        <volume name="srv"/>
-        <volume name="home"/>
-        <volume name="snapshots"/>
-        <volume name="efi"/>
-        <volume name="pc"/>
-      </systemdisk>
     </type>
     <version>7.0.1</version>
   </preferences>
@@ -64,7 +47,6 @@
     <namedCollection name="Minimal"/>
     <package name="grub2"/>
     <package name="nfs-client"/>
-    <package name="open-vm-tools"/>
     <package name="network-autoconfig"/>
     <package name="autoyast2"/>
     <package name="autoyast2-installation"/>
