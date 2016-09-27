@@ -9,7 +9,7 @@
     <defaultdestination>/tmp</defaultdestination>
     <packagemanager>zypper</packagemanager>
     <timezone>America/Chicago</timezone>
-    <type boot="oemboot/suse-SLES12" bootloader="grub2" bootpartition="false" filesystem="ext4" fsnocheck="true" hybrid="true" image="oem" installboot="install" installiso="true" primary="true" kernelcmdline="ramdisk_size=3145728">
+    <type boot="oemboot/suse-SLES12" bootloader="grub2" bootpartition="false" filesystem="ext4" fsnocheck="true" hybrid="true" image="oem" installboot="install" installiso="true" primary="true" kernelcmdline="ramdisk_size=3145728 silent">
       <oemconfig>
         <oem-boot-title>SUSE OpenStack Cloud 7 Compute Node</oem-boot-title>
         <oem-bootwait>false</oem-bootwait>
