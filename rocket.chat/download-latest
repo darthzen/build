@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ ! -d "root/opt/rocket.chat" ]; then
+    mkdir -p root/opt/rocket.chat
+fi
+
+if [ -d "root/opt/rocket.chat/bundle" ]; then
+    echo "Cleaning up existing code..."
+    rm -Rf root/opt/rocket.chat/bundle
+fi
+
+echo "Fetching latest code..."
+curl -L https://rocket.chat/releases/latest/download | tar -zxv -C root/opt/rocket.chat/
+#tar -zxvf rocket.chat.tgz -C root/opt/rocket.chat/
+#rm -fv rocket.chat.tgz
