@@ -121,7 +121,21 @@ if [ ! -s /var/log/zypper.log ]; then
 fi
 
 # only for debugging
+
 #systemctl enable debug-shell.service
+
+# Set repos
+
+rm -f /etc/zypp/repos.d/*
+
+zypper addrepo -t yast2 http://192.168.7.1/install/suse/SLES12-SP2-x86_64 SLES12-SP2-x86_64
+zypper addrepo -t rpm-md -f http://192.168.7.1/repo/SUSE/Updates/SLE-SERVER/12-SP2/x86_64/update
+zypper addrepo -t rpm-md http://192.168.7.1/repo/SUSE/Products/SLE-Module-Web-Scripting/12/x86_64/product SLE-Module-Web-Scripting
+zypper addrepo -t rpm-md -f http://192.168.7.1/repo/SUSE/Updates/SLE-Module-Web-Scripting/12/x86_64/update SLE-Module-Web-Scripting-Updates
+zypper addrepo -t rpm-md http://192.168.7.1/repo/SUSE/Products/SLE-SDK/12-SP2/x86_64/product SLE-SDK
+zypper addrepo -t rpm-md -f http://192.168.7.1/repo/SUSE/Updates/SLE-SDK/12-SP2/x86_64/update SLE-SDK-Update
+zypper addrepo -t rpm-md http://192.168.7.1/repo/SUSE/Products/SLE-Module-Adv-Systems-Management/12/x86_64/product SLE-Module-Adv-Systems-Management
+zypper addrepo -t rpm-md -f http://192.168.7.1/repo/SUSE/Updates/SLE-Module-Adv-Systems-Management/12/x86_64/update SLE-Module-Adv/Systems-Management-Updates
 
 # Install Rocket.Chat
 cd /opt/rocket.chat
@@ -129,6 +143,8 @@ ROCKETVERS=`grep "\"version\":" bundle/programs/server/packages/rocketchat_lib.j
 mv -fv bundle $ROCKETVERS
 ln -sf $ROCKETVERS app
 cd /opt/rocket.chat/app/programs/server
+
+npm install -g meteor-promise fibers promise underscore source-map-support semver node-gyp node-pre-gyp eachline chalk bcrypt
 npm install --unsafe-perm
 
 baseCleanMount

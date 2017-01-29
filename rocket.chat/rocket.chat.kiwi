@@ -44,7 +44,7 @@
                 <volume name="var/opt"/>
                 <volume name="var/tmp"/>
             </systemdisk>
-            <size unit="G">2</size>
+            <size unit="G">5</size>
         </type>
     </preferences>
     <repository alias="SLES12-SP2" priority="99" type="yast2" >
@@ -126,6 +126,7 @@
         <package name="salt-minion"/>
 
         <namedCollection name="Basis-Devel"/>
+        <namedCollection name="SDK-C-C++"/>
         <package name="git"/>
         <package name="apache2"/>
         <package name="nodejs4"/>
