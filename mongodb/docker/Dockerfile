@@ -19,5 +19,6 @@ VOLUME ["/var/lib/mongodb/"]
 
 EXPOSE 27017
 
-CMD ["/sbin/init"]
+ENTRYPOINT ["/usr/lib/systemd/systemd", "--system"]
+CMD [ "--unit=mongodb.service"]
 
