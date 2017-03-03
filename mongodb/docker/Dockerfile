@@ -18,7 +18,7 @@ ADD mongodb.conf /etc/mongodb.conf
 VOLUME ["/var/lib/mongodb/"]
 
 EXPOSE 27017
+EXPOSE 28017
 
-ENTRYPOINT ["/usr/lib/systemd/systemd", "--system"]
-CMD [ "--unit=mongodb.service"]
+CMD /usr/sbin/mongod -f /etc/mongodb.conf
 
