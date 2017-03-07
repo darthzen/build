@@ -14,7 +14,7 @@ RUN zypper --non-interactive remove container-suseconnect; \
     zypper --non-interactive --gpg-auto-import-keys update --auto-agree-with-licenses; \
     zypper --non-interactive --gpg-auto-import-keys install --auto-agree-with-licenses python; \
     zypper --non-interactive --gpg-auto-import-keys install --auto-agree-with-licenses -t pattern Basis-Devel SDK-C-C++; \
-    zypper --non-interactive --gpg-auto-import-keys install --auto-agree-with-licenses --recommends apache2 nodejs4 npm4 GraphicsMagick curl; \
+    zypper --non-interactive --gpg-auto-import-keys install --auto-agree-with-licenses --recommends nodejs4 npm4 GraphicsMagick curl; \
     cd /tmp; \
     npm install bcrypt; \
     npm install -g meteor-promise fibers promise underscore source-map-support semver node-gyp node-pre-gyp eachline chalk; \
@@ -24,27 +24,25 @@ RUN zypper --non-interactive remove container-suseconnect; \
     mkdir -p /srv/www/rocket.chat/uploads; \
     curl -L https://rocket.chat/releases/latest/download | tar -zxv -C /srv/www/rocket.chat/ --strip-components=1; \
     cd /srv/www/rocket.chat/programs/server; \
-    npm install; \
+    npm install --unsafe-perm; \
     npm cache clear; \
     groupadd -r rocketchat; \
     useradd -r -g rocketchat rocketchat; \
     chown -R rocketchat:rocketchat /srv/www/rocket.chat; \ 
-    systemctl enable apache2 rocketchat; \
     echo "VERSION ${ROCKETVERS} BUILD SUCCESSFUL"
-
-ADD rocketchat.conf /etc/apache2/vhosts.d/rocketchat.conf
 
 USER rocketchat
 
 VOLUME /srv/www/rocket.chat/uploads
 
 ENV MONGO_URL=mongodb://mongo:27017/rocketchat \
-    MONGO_OPLOG_URL=mongodb://mongo:27017/local \
     HOME=/tmp \
     PORT=3000 \
     ROOT_URL=http://localhost:3000 \
-    Accounts_AvatarStorePath=/app/uploads
+    Accounts_AvatarStorePath=/srv/www/rocket.chat/uploads
 
-EXPOSE 443
+EXPOSE 3000
 
-CMD [ "/sbin/init" ]
+WORKDIR /srv/www/rocket.chat
+
+CMD /usr/bin/node main.js

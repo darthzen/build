@@ -20,5 +20,5 @@ VOLUME ["/var/lib/mongodb/"]
 EXPOSE 27017
 EXPOSE 28017
 
-CMD /usr/sbin/mongod -f /etc/mongodb.conf
+CMD /usr/sbin/mongod -f /etc/mongodb.conf --replSet=rocketchat
 
