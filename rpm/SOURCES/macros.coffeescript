@@ -1,0 +1,3 @@
+# RPM macros for coffeescript(cake)
+%cake_build %(cake build)
+%cake_install %(cake --prefix %{buildroot}%{nodejs_sitelib} install)
