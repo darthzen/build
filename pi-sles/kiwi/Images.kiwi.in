@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+#define QUOTED(x) #x
+#define QUOTED_EXPAND(x) QUOTED(x)
+
+/*
+ *
+ */
+
+#define TYPE_ROOTFS 0
+#define TYPE_JEOS 1
+#define TYPE_XFCE 2
+#define TYPE_E20 3
+#define TYPE_LXQT 4
+#define TYPE_X11 5
+
+#define VERSION 12-SP2
+#define SUFFIX ARM
+#if IS_FLAVOR_rootfs
+#define IMAGENAME SLES-VERSION-SUFFIX-IMAGE_TYPE_STRING.ARCH-FLAVOR_TYPE
+#else
+#define IMAGENAME SLES-VERSION-SUFFIX-IMAGE_TYPE_STRING-FLAVOR_TYPE
+#endif
+#define IMAGENAME_STR QUOTED_EXPAND(IMAGENAME)
+
+#define PKG_TAG(x) <package name=QUOTED_EXPAND(x)/>
+#define PKG_BOOT_TAG(x) <package name=QUOTED_EXPAND(x) bootinclude="true"/>
+#define TAR_BOOT_TAG(x) <archive name=QUOTED_EXPAND(x) bootinclude="true"/>
+
+/*
+ * Define the specification
+ */
+
+#define SPECIFICATION SLES VERSION IMAGE_TYPE_STRING image for SUFFIX (FLAVOR_TYPE) boards
+
+/*
+ * Define the bootkernel (default is default)
+ */
+
+#if IS_FLAVOR_raspberrypi
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 rootflags=commit=120,data=writeback"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 rootflags=commit=120,data=writeback"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(raspberrypi-firmware) \
+			 PKG_BOOT_TAG(raspberrypi-firmware-branding-openSUSE) \
+			 PKG_BOOT_TAG(u-boot-rpi) \
+			 PKG_TAG(gptfdisk) \
+                         PKG_BOOT_TAG(dtb-bcm2835)
+#elif IS_FLAVOR_raspberrypi2
+#  define BOOTKERNEL rpi2
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT dwc_otg.lpm_enable=0 console=ttyAMA0,115200n8 kgdboc=ttyAMA0,115200 rootflags=commit=120,data=writeback"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT dwc_otg.lpm_enable=0 console=ttyAMA0,115200n8 kgdboc=ttyAMA0,115200 rootflags=commit=120,data=writeback"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(raspberrypi-firmware) \
+			 PKG_BOOT_TAG(raspberrypi-firmware-branding-openSUSE) \
+			 PKG_BOOT_TAG(u-boot-rpi2) \
+			 PKG_TAG(gptfdisk) \
+                         PKG_BOOT_TAG(dtb-bcm2709)
+#elif IS_FLAVOR_raspberrypi3
+#  define BOOTKERNEL rpi2
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT dwc_otg.lpm_enable=0 console=ttyAMA0,115200n8 kgdboc=ttyAMA0,115200 rootflags=commit=120,data=writeback"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT dwc_otg.lpm_enable=0 console=ttyAMA0,115200n8 kgdboc=ttyAMA0,115200 rootflags=commit=120,data=writeback"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(raspberrypi-firmware) \
+			 PKG_BOOT_TAG(raspberrypi-firmware-branding-openSUSE) \
+			 PKG_BOOT_TAG(u-boot-rpi2) \
+			 PKG_TAG(gptfdisk) \
+                         PKG_BOOT_TAG(dtb-bcm2710) \
+                         PKG_TAG(bcm43xx-firmware)
+#elif IS_FLAVOR_raspberrypi3_aarch64
+#  define USE_BTRFS
+
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+/* We need YaST to appear on the graphical output, so place tty last */
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8 console=tty"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(raspberrypi-firmware) \
+                         PKG_BOOT_TAG(raspberrypi-firmware-config-rpi3) \
+			 PKG_BOOT_TAG(u-boot-rpi3) \
+                         PKG_TAG(gptfdisk) \
+                         PKG_TAG(bcm43xx-firmware)
+#  define USE_EFI 1
+#elif IS_FLAVOR_panda
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS2,115200n8 vram=16M"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS2,115200n8 vram=16M"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-omap4panda) \
+			PKG_BOOT_TAG(dtb-omap4)
+#  define USE_EFI 1
+#elif IS_FLAVOR_beagle
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS2,115200n8 vram=16M"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS2,115200n8 vram=16M"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-omap3beagle) \
+			PKG_BOOT_TAG(dtb-omap3)
+#  define USE_EFI 1
+#elif IS_FLAVOR_beaglebone
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-am335xevm) \
+			PKG_BOOT_TAG(dtb-am335x)
+#  define USE_EFI 1
+
+#elif IS_FLAVOR_highbank
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyAMA0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyAMA0,115200n8"
+#  define EXTRA_PACKAGES
+#elif IS_FLAVOR_midway
+#  define BOOTKERNEL lpae
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyAMA0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyAMA0,115200n8"
+#  define EXTRA_PACKAGES
+#elif IS_FLAVOR_cubox
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(dtb-dove)
+#elif IS_FLAVOR_efikamx
+#  define BOOTKERNEL efikamx
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttymxc0,115200"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttymxc0,115200"
+#  define EXTRA_PACKAGES PKG_TAG(sdma-firmware) \
+			PKG_BOOT_TAG(dtb-imx5)
+#elif IS_FLAVOR_sabrelite
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttymxc1,115200"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttymxc1,115200"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-mx6qsabrelite) \
+			PKG_BOOT_TAG(dtb-imx6)
+#elif IS_FLAVOR_origen
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttySAC2,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttySAC2,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-origen) \
+                        PKG_BOOT_TAG(dtb-exynos4)
+#elif IS_FLAVOR_cubieboard
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-cubieboard) \
+            PKG_BOOT_TAG(dtb-sun4i)
+#elif IS_FLAVOR_cubieboard2
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-cubieboard2) \
+			PKG_BOOT_TAG(dtb-sun7i)
+#elif IS_FLAVOR_cubietruck
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-cubietruck) \
+			PKG_BOOT_TAG(dtb-sun7i)
+#elif IS_FLAVOR_bananapi
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-bananapi) \
+			PKG_BOOT_TAG(dtb-sun7i)
+#elif IS_FLAVOR_chromebook
+#  define BOOTKERNEL lpae
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttySAC3,115200n8 console=tty"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttySAC3,115200n8 console=tty"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-snow) \
+			PKG_BOOT_TAG(dtb-exynos5) \
+			PKG_BOOT_TAG(mrvl-firmware) \
+			PKG_TAG(vboot) \
+			PKG_TAG(dtc) \
+                        PKG_TAG(gptfdisk) \
+                        PKG_TAG(x11-config-chromebook)
+#elif IS_FLAVOR_loco
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttymxc0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttymxc0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-mx53loco) \
+                         PKG_BOOT_TAG(dtb-imx5)
+#elif IS_FLAVOR_arndale
+#  define BOOTKERNEL lpae
+#  define KERNEL_CMDLINE_SER "zswap.enabled=1 KERNEL_CMDLINE_DEFAULT console=ttySAC2,115200n8"
+#  define KERNEL_CMDLINE_GFX "zswap.enabled=1 KERNEL_CMDLINE_DEFAULT console=ttySAC2,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-arndale) \
+                         PKG_BOOT_TAG(dtb-exynos5)
+/* Samsung's bl1 lies at sector 1, overlapping with the EFI GPT, so we can not use EFI */
+#elif IS_FLAVOR_mustang
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8 console=tty"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(dtb-apm-mustang)
+#elif IS_FLAVOR_cuboxi
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttymxc0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttymxc0,115200n8 console=tty"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(dtb-imx6) \
+                         PKG_TAG(irqbalance) \
+                         PKG_BOOT_TAG(u-boot-mx6cuboxi)
+#elif IS_FLAVOR_efi
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyAMA0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyAMA0,115200n8 console=tty"
+#  define EXTRA_PACKAGES \
+                         PKG_TAG(irqbalance)
+/* We'd like to just to make MGE a happy man, but btrfs is broken on aarch64
+#  define USE_BTRFS
+*/
+#  define USE_EFI 1
+#elif IS_FLAVOR_thunderx
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyAMA0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyAMA0,115200n8 console=tty"
+#  define EXTRA_PACKAGES \
+                         PKG_TAG(irqbalance)
+
+/* We'd like to just to make MGE a happy man, but btrfs is broken on aarch64
+#  define USE_BTRFS
+*/
+
+#  define USE_EFI 1
+#elif IS_FLAVOR_paz00
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8 console=tty"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8 console=tty"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-paz00) \
+                         PKG_BOOT_TAG(dtb-tegra2)
+#elif IS_FLAVOR_odroid
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttySAC1,115200n8 console=tty"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttySAC1,115200n8 console=tty"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-odroid) \
+                         PKG_BOOT_TAG(dtb-exynos4) \
+			 PKG_BOOT_TAG(odroid-firmware)
+#elif IS_FLAVOR_odroidxu3
+#  define BOOTKERNEL lpae
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttySAC2,115200n8 console=tty"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttySAC2,115200n8 console=tty"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-odroid-xu3) \
+                         PKG_BOOT_TAG(dtb-exynos5) \
+			 PKG_BOOT_TAG(odroidxu3-firmware)
+#elif IS_FLAVOR_olinuxinolime
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-a10-olinuxino-lime) \
+                         PKG_BOOT_TAG(dtb-sun4i)
+#elif IS_FLAVOR_olinuxinolime2
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-a20-olinuxino-lime2) \
+                         PKG_BOOT_TAG(dtb-sun7i)
+#elif IS_FLAVOR_a20olinuxinolime
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-a20-olinuxino-lime) \
+                         PKG_BOOT_TAG(dtb-sun7i)
+#elif IS_FLAVOR_a20olinuxinomicro
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-a20-olinuxinomicro) \
+                         PKG_BOOT_TAG(dtb-sun7i)
+#elif IS_FLAVOR_a13olinuxino
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-a13-olinuxino) \
+                         PKG_BOOT_TAG(dtb-sun5i)
+#elif IS_FLAVOR_a20olinuxinolime
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(u-boot-a20-olinuxino-lime) \
+                         PKG_BOOT_TAG(dtb-sun7i)
+#elif IS_FLAVOR_hip04d01
+#  define BOOTKERNEL lpae
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES
+#  define USE_EFI 1
+#elif IS_FLAVOR_hip05d02
+#  define BOOTKERNEL hip05d02
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define EXTRA_PACKAGES
+#  define USE_EFI 1
+#elif IS_FLAVOR_m400
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,9600n8r"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,9600n8r"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(dtb-m400)
+#elif IS_FLAVOR_hikey
+#  define BOOTKERNEL hikey
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyAMA3,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyAMA3,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(dtb-hikey)
+#  define USE_EFI 1
+#elif IS_FLAVOR_vexpress
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyAMA0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyAMA0,115200n8"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(dtb-vexpress)
+#elif IS_FLAVOR_pine64
+#  define BOOTKERNEL pine64
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8"
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT console=ttyS0,115200n8 console=tty"
+#  define EXTRA_PACKAGES PKG_BOOT_TAG(firmware-pine64) \
+			 PKG_BOOT_TAG(dtb-allwinner) \
+			 PKG_TAG(gptfdisk)
+#  define USE_EFI 1
+#else
+#  define BOOTKERNEL default
+#  define KERNEL_CMDLINE_SER "KERNEL_CMDLINE_DEFAULT "
+#  define KERNEL_CMDLINE_GFX "KERNEL_CMDLINE_DEFAULT "
+#  define EXTRA_PACKAGES
+#endif
+
+/* Use the respective command line syntax */
+#if (IMAGE_TYPE == TYPE_X11 || IMAGE_TYPE == TYPE_XFCE || IMAGE_TYPE == TYPE_E20)
+#define KERNEL_CMDLINE_STR KERNEL_CMDLINE_GFX
+#else
+#define KERNEL_CMDLINE_STR KERNEL_CMDLINE_SER
+#endif
+
+<image schemaversion="6.1" name=IMAGENAME_STR>
+#if IS_FLAVOR_raspberrypi3_aarch64
+/* EXTRA_PACKAGES are only available on aarch64.
+ * Normally this should be above the <image/> tag,
+ * but KIWI OOMs in that case. */
+<!-- Obs-ExclusiveArch: aarch64 -->
+#endif
+	<!--
+
+	*****************************************************************************
+	*****************************************************************************
+
+	The *.kiwi files are autogenerated, please edit Images.kiwi.in instead!
+
+	  sh pre_checkin.sh
+
+	re-generates the *.kiwi file!
+
+	*****************************************************************************
+	*****************************************************************************
+	-->
+	<description type="system">
+		<author>Marcus Schäfer</author>
+		<contact>ms@novell.com</contact>
+		<specification>
+			SPECIFICATION
+		</specification>
+	</description>
+        <preferences>
+#if IS_FLAVOR_rootfs
+    <type image="tbz" primary="true"/>
+#else
+    <type image="oem" boot="oemboot/suse-SLES12" bootkernel="custom"
+#ifdef USE_BTRFS
+            filesystem="btrfs" fsmountoptions="noatime,compress=lzo"
+#else
+            filesystem="ext4" fsmountoptions="noatime,nobarrier"
+#endif
+#if IS_FLAVOR_chromebook || IS_FLAVOR_raspberrypi || IS_FLAVOR_raspberrypi2 || IS_FLAVOR_raspberrypi3
+        firmware="vboot"
+#endif
+#ifdef USE_EFI
+        bootloader="grub2"
+        firmware="efi"
+#else
+        bootloader="uboot"
+#endif
+	/* We want these for EFI as well - they generate the startup.nsh */
+        editbootconfig="uboot-image-FLAVOR_TYPE-setup"
+        editbootinstall="uboot-image-FLAVOR_TYPE-install"
+        kernelcmdline=KERNEL_CMDLINE_STR
+#ifdef USE_PXE
+        installpxe="true"
+#endif
+	>
+        <oemconfig>
+#ifdef NO_SWAP
+           <oem-swap>false</oem-swap>
+#else
+           <oem-swap>true</oem-swap>
+           <oem-swapsize>500</oem-swapsize>
+#endif
+           <oem-skip-verify>true</oem-skip-verify>
+        </oemconfig>
+#ifdef USE_BTRFS
+        <systemdisk name="SLES12-SP2-RPi3">
+            <volume name="home"/>
+            <volume name="tmp"/>
+            <volume name="opt"/>
+            <volume name="srv"/>
+            <volume name="var/crash"/>
+            <volume name="var/spool"/>
+            <volume name="var/lib/mailman"/>
+            <volume name="var/lib/named"/>
+            <volume name="var/lib/mysql"/> <!-- Requires No CoW, applied by uboot-image-install -->
+            <volume name="var/lib/mariadb"/> <!-- Same here -->
+            <volume name="var/lib/pgsql"/> <!-- Same here -->
+            <volume name="var/lib/libvirt/images"/> <!-- Same here -->
+            <volume name="usr/local"/>
+            <volume name="var/log"/>
+            <volume name="var/opt"/>
+            <volume name="var/tmp"/>
+        </systemdisk>
+#endif
+   </type>
+#endif
+		<version>CHANGED</version>
+		<packagemanager>zypper</packagemanager>
+		<locale>en_US</locale>
+		<keytable>us.map.gz</keytable>
+		<timezone>Europe/Berlin</timezone>
+		<hwclock>utc</hwclock>
+                <bootloader-theme>SLE</bootloader-theme>
+		<bootsplash-theme>SLE</bootsplash-theme>
+	</preferences>
+	<users group="root">
+		<user password="$1$wYJUgpM5$RXMMeASDc035eX.NbYWFl0" home="/root" name="root"/>
+        </users>
+	<repository type="rpm-md">
+            <source path="obsrepositories:/"/>
+        </repository>
+#if IS_FLAVOR_chromebook
+       <repository type="rpm-md" priority="5">
+               <source path="obs://devel:ARM:Factory:Contrib:Chromebook/standard"/>
+       </repository>
+#endif
+#if IS_FLAVOR_efikamx
+	<repository type="rpm-md" priority="5">
+		<source path="obs://devel:ARM:Factory:Contrib:EFIKAMX/standard"/>
+	</repository>
+#endif
+#if IS_FLAVOR_thunderx
+        <repository type="rpm-md" priority="5">
+                <source path="obs://devel:ARM:Factory:Contrib:ThunderX/standard"/>
+        </repository>
+#endif
+#if IS_FLAVOR_raspberrypi2 || IS_FLAVOR_raspberrypi3
+        <repository type="rpm-md" priority="5">
+            <source path="obs://devel:ARM:Factory:Contrib:RaspberryPi2/standard"/>
+        </repository>
+#endif
+#if IS_FLAVOR_m400
+        <repository type="rpm-md" priority="5">
+            <source path="obs://devel:ARM:Factory:Contrib:m400/standard"/>
+        </repository>
+#endif
+#if IS_FLAVOR_hip05d02
+        <repository type="rpm-md" priority="5">
+            <source path="obs://devel:ARM:Factory:Contrib:HIP05D02/standard"/>
+        </repository>
+#endif
+#if IS_FLAVOR_odroid || IS_FLAVOR_odroidxu3
+       <repository type="rpm-md" priority="5">
+               <source path="obs://devel:ARM:Factory:Contrib:Odroid/standard"/>
+       </repository>
+#endif
+#if IS_FLAVOR_hikey
+        <repository type="rpm-md" priority="5">
+            <source path="obs://devel:ARM:Factory:Contrib:96boards/standard"/>
+        </repository>
+#endif
+#if IS_FLAVOR_pine64
+        <repository type="rpm-md" priority="5">
+            <source path="obs://devel:ARM:Factory:Contrib:Pine64/standard"/>
+        </repository>
+#endif
+	<!-- strip excessive bloat from the initrd -->
+        <strip type="delete">
+#if IS_FLAVOR_raspberrypi3_aarch64
+            <!-- sdhci-iproc must not be in the first initrd -->
+            <file name="/lib/modules/*/kernel/drivers/mmc/host/sdhci-iproc.ko"/>
+#endif
+	    <file name="/etc/udev/hwdb.bin"/>
+	    <file name="/etc/services"/>
+            <file name="/lib/firmware/brcm/*-pcie.bin"/>
+            <file name="/lib/modules/*/kernel/drivers/net/wireless"/>
+	    <file name="/usr/bin/host"/>
+	    <file name="/usr/bin/busybox"/>
+	    <file name="/usr/bin/curl"/>
+	    <file name="/usr/bin/diff"/>
+	    <file name="/usr/bin/fbiterm"/>
+	    <file name="/usr/bin/gawk"/>
+	    <file name="/usr/bin/journalctl"/>
+	    <file name="/usr/bin/rsync"/>
+	    <file name="/usr/sbin/wicked"/>
+	    <file name="/usr/lib/ldscripts"/>
+	    <file name="/usr/lib64/ldscripts"/>
+	    <file name="/usr/lib/genisoimage"/>
+#ifndef USE_EFI
+	    /* We need to keep grub2 in for efi. Otherwise kiwi complains with
+	     * [  941s] Mar-06 22:24:39 <3> : No grub2 stage files found in boot image */
+	    <file name="/usr/lib/grub2"/>
+#endif
+	    <file name="/usr/lib/perl5"/>
+	    <file name="/usr/lib/wicked"/>
+	    <file name="/usr/lib/udev/hwdb.d"/>
+	    <file name="/usr/lib/systemd/user"/>
+	    <file name="/usr/lib/systemd/user-generators"/>
+	    <file name="/usr/lib/systemd/catalog"/>
+	    <file name="/usr/lib/systemd/system/busnames.target.wants"/>
+	    <file name="/usr/lib/systemd/system/local-fs.target.wants"/>
+	    <file name="/usr/lib/systemd/system/poweroff.target.wants"/>
+	    <file name="/usr/lib/systemd/system/multi-user.target.wants"/>
+	    <file name="/usr/lib/systemd/systemd-backlight"/>
+	    <file name="/usr/lib/systemd/systemd-bus-proxyd"/>
+	    <file name="/usr/lib/systemd/systemd-coredump"/>
+	    <file name="/usr/lib/systemd/systemd-localed"/>
+	    <file name="/usr/lib/systemd/systemd-logind"/>
+	    <file name="/usr/lib/systemd/systemd-machined"/>
+	    <file name="/usr/lib/systemd/systemd-networkd"/>
+	    <file name="/usr/lib/systemd/systemd-timesyncd"/>
+	    <file name="/usr/share/misc/magic"/>
+	    <file name="/usr/share/pci.ids"/>
+	    <file name="/usr/share/pci.ids.d"/>
+	    <file name="/var/adm"/>
+	    <file name="/var/cache/zypp"/>
+	    <file name="/usr/share/tc"/>
+	    <file name="/usr/share/kbd/consolefonts"/>
+	    <file name="/usr/share/fbiterm"/>
+	    <file name="/usr/share/fonts"/>
+	    <file name="/usr/share/help"/>
+	    <file name="/usr/share/icu"/>
+	    <file name="/usr/share/locale"/>
+	    <file name="/usr/share/wicked"/>
+	</strip>
+	<!-- dont remove qemu binfmt helpers from initrd -->
+	<strip type="tools">
+		<file name="qemu-arm-binfmt"/>
+		<file name="qemu-arm"/>
+		<file name="qemu-cputype-armv6.sh"/>
+	</strip>
+	<drivers>
+		<file name="drivers/ata/*"/> <!-- For SATA -->
+		<file name="drivers/dma/*"/> <!-- For DMA -->
+		<file name="drivers/gpio/*"/> <!-- Needed for TWL6040 GPO for MMC boot on pandaboard -->
+		<file name="drivers/gpu/*"/> <!-- For display -->
+		<file name="drivers/mmc/card/*"/> <!-- For SD/MMC -->
+		<file name="drivers/mmc/host/*"/> <!-- For SD/MMC -->
+		<file name="drivers/phy/*"/> <!-- Various phy: sata, usb, video, ... -->
+		<file name="drivers/regulator/*"/> <!-- Needed for MMC boot on Beagleboard xM (pbias-regulator.ko) -->
+#if IS_FLAVOR_chromebook
+		<file name="drivers/pwm/*"/> <!-- Needed for pwm-samsung to get display working on Chromebook -->
+#endif
+#if IS_FLAVOR_raspberrypi3 || IS_FLAVOR_raspberrypi3_aarch64
+		<file name="drivers/i2c/busses/*"/> <!-- Needed for RPI vc4drmfb -->
+#endif
+	</drivers>
+  <packages type="bootstrap">
+    <package name="filesystem"/>
+    <package name="glibc-locale"/>
+  </packages>
+  <packages type="image" patternType="plusRecommended">
+PKG_BOOT_TAG(kernel-BOOTKERNEL)
+EXTRA_PACKAGES
+#if IS_FLAVOR_raspberrypi3_aarch64 && IMAGE_TYPE == TYPE_X11
+<!-- Special SLES for rpi3 -->
+#include "packagelist.rpi3.inc"
+<archive name="y2firstboot.tar.gz"/>
+#else
+#include "packagelist.inc"
+#endif
+#if !IS_FLAVOR_rootfs
+<!-- custom hook scripts for uboot -->
+         <archive name="uboot-setup-FLAVOR_TYPE.tgz" bootinclude="true"/>
+#endif
+#if IS_FLAVOR_chromebook
+<!-- custom hook scripts to fix partition layout after repartion on 1st boot (chromebook only) -->
+         <archive name="cgpt-table-update.tgz" bootinclude="true"/>
+#endif
+	</packages>
+	<packages type="delete">
+<!-- not needed at runtime, but removing would happen too early
+                <package name="qemu-linux-user-arm" />
+-->
+	</packages>
+</image>
