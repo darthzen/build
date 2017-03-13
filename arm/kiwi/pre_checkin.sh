@@ -20,6 +20,7 @@ headversion=$(date -d "$(head -n 2 *.changes | tail -n 1 | cut -d- -f1 )" +%Y.%m
 #aarch64_devel_images="efi"
 
 aarch64_gfx_images="raspberrypi3_aarch64"
+aarch64_jeos_images="$aarch64_gfx_images pine64"
 
 for arch in armv6 armv7 aarch64; do
     image_list=""

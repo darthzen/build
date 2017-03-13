@@ -6,7 +6,7 @@ flavor=pine64
 target=firstboot
 kerneladdr=
 ramdiskaddr=
-bootkernel=default
+bootkernel=pine64
 
 case $target in
   firstboot)
@@ -95,6 +95,7 @@ bootdevs=mmc
 units="0"
 bootparts='${unit}:1'
 boottype=bootz
+[ `uname -m` = "aarch64" ] && boottype=booti
 setdev='mmc dev ${unit}'
 sizeprefix=0x
 fdtfolder=dtb
@@ -215,16 +216,25 @@ case $flavor in
     should_use_fdt=1
     should_load_fdt=1
     use_fdt_addr_r=1
-    fdtfile=bcm2835-rpi-b.dtb # TODO: Support all RPi1 DTB included in Linux kernel, not only RPi 1 B
-    # kernel-raspberrypi does not use DT contrary to kernel-default
+    #fdtfile is set by u-boot, do not overwrite
+    # kernel-raspberrypi (downstream kernel) does not use the same DT
     if [ $bootkernel = raspberrypi ]; then
-      should_use_fdt=0
-      should_load_fdt=0
+      fdtfile=bcm2708-rpi-b.dtb # TODO: Support all RPi1 DTB included in Linux kernel, not only RPi 1 B
     fi
     # bootargs for dracut shouldn't override rootfstype
     bootargs=$(echo "$bootargs" | sed 's/ rootfstype=ramfs//')
-    # Pass Mac address to Linux (works only on downstream kernel)
-    bootargs="$bootargs smsc95xx.macaddr=\${usbethaddr} "
+    if [ $bootkernel = raspberrypi ]; then
+      # Pass Mac address to Linux (works only on downstream kernel). Should be removed with new u-boot which will auto-update device-tree with it.
+      if [ $target = boot ]; then
+	# Bootargs is defined upper in this script, so it is available/editable
+        bootargs=$(echo "$bootargs smsc95xx.macaddr=\${usbethaddr} ")
+      else # $target = firstboot
+	# Bootargs is already defined by kiwi but not available/editable here
+	bootargs=$(echo "\${bootargs} smsc95xx.macaddr=\${usbethaddr} ")
+      fi
+    fi
+    # initrd needs to be relocated as it is too big
+    initrd_high=
     ;;
   raspberrypi2)
     fs=""
@@ -232,16 +242,45 @@ case $flavor in
     should_use_fdt=1
     should_load_fdt=1
     use_fdt_addr_r=1
-    fdtfile=bcm2709-rpi-2-b.dtb
-    # kernel-raspberrypi does not use DT contrary to kernel-default
     if [ $bootkernel = rpi2 ]; then
-      should_use_fdt=0
-      should_load_fdt=0
+      fdtfile=bcm2709-rpi-2-b.dtb
     fi
     # bootargs for dracut shouldn't override rootfstype
     bootargs=$(echo "$bootargs" | sed 's/ rootfstype=ramfs//')
-    # Pass Mac address to Linux (works only on downstream kernel)
-    bootargs="$bootargs smsc95xx.macaddr=\${usbethaddr} "
+    if [ $bootkernel = rpi2 ]; then
+      # Pass Mac address to Linux (works only on downstream kernel) Should be removed with new u-boot which will auto-update device-tree with it.
+      if [ $target = boot ]; then
+	# Bootargs is defined upper in this script, so it is available/editable
+        bootargs=$(echo "$bootargs smsc95xx.macaddr=\${usbethaddr} ")
+      else # $target = firstboot
+	# Bootargs is already defined by kiwi but not available/editable here
+	bootargs=$(echo "\${bootargs} smsc95xx.macaddr=\${usbethaddr} ")
+      fi
+    fi
+    # initrd needs to be relocated as it is too big
+    initrd_high=
+    ;;
+  raspberrypi3|raspberrypi3_aarch64)
+    fs=""
+    bootparts='${unit}:2'
+    should_use_fdt=1
+    should_load_fdt=1
+    use_fdt_addr_r=1
+    fdtfile=bcm2710-rpi-3-b.dtb
+    # bootargs for dracut shouldn't override rootfstype
+    bootargs=$(echo "$bootargs" | sed 's/ rootfstype=ramfs//')
+    if [ $bootkernel = rpi2 ]; then
+      # Pass Mac address to Linux (works only on downstream kernel) Should be removed with new u-boot which will auto-update device-tree with it.
+      if [ $target = boot ]; then
+	# Bootargs is defined upper in this script, so it is available/editable
+        bootargs=$(echo "$bootargs smsc95xx.macaddr=\${usbethaddr} ")
+      else # $target = firstboot
+	# Bootargs is already defined by kiwi but not available/editable here
+	bootargs=$(echo "\${bootargs} smsc95xx.macaddr=\${usbethaddr} ")
+      fi
+    fi
+    # initrd needs to be relocated as it is too big
+    initrd_high=
     ;;
   cuboxi)
     kerneladdr=0x10800100
@@ -249,7 +288,7 @@ case $flavor in
     ramdiskaddr=calculate
     should_load_fdt=1
     should_use_fdt=1
-    fdtfile=call_autodetectfdt
+    fdtfile=call_findfdt
     fs="" # u-boot does not know ext2load on cubox-i, 'load' does the job fine
     ;;
   mustang)
@@ -364,6 +403,10 @@ if [ $boottype = bootz -a $target = boot ]; then
     kernel=zImage
 fi
 
+if [ $boottype = booti -a $target = boot ]; then
+    kernel=Image
+fi
+
 # calculate fdt- and ramdiskaddr from kerneladdr
 # kernel needs maximum 63MB
 # fdt maximum 1MB
@@ -377,8 +420,8 @@ if [ "x$ramdiskaddr" = "xcalculate" ]; then
 	ramdiskaddr=`printf '0x%X' $ramdiskaddr` # convert back to hexadecimal
 fi
 
-# copy bash variables into boot script
-for variable in kernel initrd fdtfile fdtfolder flavor target bootdevs bootparts \
+# copy bash variables into boot script (except 'target' which is not used in u-boot and may overlap u-boot variables (e.g. cubox-i))
+for variable in kernel initrd fdtfile fdtfolder flavor bootdevs bootparts \
                 initrd_high fdt_high boottype kerneladdr ramdiskaddr should_use_fdt \
                 should_load_fdt fdtaddr setdev units sizeprefix use_fdt_addr \
                 use_fdt_addr_r fs remove_fdt_high should_use_splashfile splashfile; do

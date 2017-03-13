@@ -411,16 +411,36 @@
 		<packagemanager>zypper</packagemanager>
 		<locale>en_US</locale>
 		<keytable>us.map.gz</keytable>
-		<timezone>Europe/Berlin</timezone>
+        <timezone>US/Central</timezone>
 		<hwclock>utc</hwclock>
                 <bootloader-theme>SLE</bootloader-theme>
 		<bootsplash-theme>SLE</bootsplash-theme>
 	</preferences>
 	<users group="root">
 		<user password="$1$wYJUgpM5$RXMMeASDc035eX.NbYWFl0" home="/root" name="root"/>
-        </users>
+    </users>
+    <!--
 	<repository type="rpm-md">
             <source path="obsrepositories:/"/>
+        </repository>
+-->
+	<repository alias="SLE-SERVER" type="rpm-md">
+        <source path="http://192.168.124.1/repo/SUSE/Products/SLE-SERVER/12-SP2/aarch64/product"/>
+        </repository>
+	<repository alias="SLE-SERVER-Updates" type="rpm-md">
+        <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-SERVER/12-SP2/aarch64/update"/>
+        </repository>
+	<repository alias="SLE-SDK" type="rpm-md">
+        <source path="http://192.168.124.1/repo/SUSE/Products/SLE-SDK/12-SP2/aarch64/product"/>
+        </repository>
+	<repository alias="SLE-SDK-Updates" type="rpm-md">
+        <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-SDK/12-SP2/aarch64/update"/>
+        </repository>
+	<repository alias="SLE-Manager-Tools" type="rpm-md">
+        <source path="http://192.168.124.1/repo/SUSE/Products/SLE-Manager-Tools/12/aarch64/product"/>
+        </repository>
+	<repository alias="SLE-Manager-Tools-Updates" type="rpm-md">
+        <source path="http://192.168.124.1/repo/SUSE/Updates/SLE-Manager-Tools/12/aarch64/update"/>
         </repository>
 #if IS_FLAVOR_chromebook
        <repository type="rpm-md" priority="5">
@@ -464,7 +484,8 @@
 #endif
 #if IS_FLAVOR_pine64
         <repository type="rpm-md" priority="5">
-            <source path="obs://devel:ARM:Factory:Contrib:Pine64/standard"/>
+            <!-- <source path="obs://devel:ARM:Factory:Contrib:Pine64/standard"/> -->
+            <source path="http://192.168.124.1/mirror/download.opensuse.org/repositories/home:/favogt:/branches:/devel:/ARM:/Factory:/Contrib:/Pine64/standard/"/>
         </repository>
 #endif
 	<!-- strip excessive bloat from the initrd -->
