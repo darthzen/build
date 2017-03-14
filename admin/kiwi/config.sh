@@ -30,7 +30,7 @@ test -f /.profile && . /.profile
 # mkdir /var/lib/mailman
 # mkdir /boot/grub2/i386-pc
 
-mkdir /var/lib/misc/reconfig_system
+#mkdir /var/lib/misc/reconfig_system
 
 #======================================
 # Greeting...
@@ -48,26 +48,26 @@ CONSOLE_FONT="lat9w-16.psfu"
 #======================================
 # prepare for setting root pw, timezone
 #--------------------------------------
-echo ** "reset machine settings"
+#echo ** "reset machine settings"
 #sed -i 's/^root:[^:]*:/root:*:/' /etc/shadow
-rm /etc/machine-id
+#rm /etc/machine-id
 #rm /etc/localtime
-rm /var/lib/zypp/AnonymousUniqueId
-rm /var/lib/systemd/random-seed
+#rm /var/lib/zypp/AnonymousUniqueId
+#rm /var/lib/systemd/random-seed
 
 #======================================
 # SuSEconfig
 #--------------------------------------
-echo "** Running suseConfig..."
-suseConfig
+#echo "** Running suseConfig..."
+#suseConfig
 
-echo "** Running ldconfig..."
-/sbin/ldconfig
+#echo "** Running ldconfig..."
+#/sbin/ldconfig
 
 #======================================
 # Setup baseproduct link
 #--------------------------------------
-suseSetupProduct
+#suseSetupProduct
 
 #======================================
 # Specify default runlevel
@@ -97,13 +97,13 @@ baseStripRPM
 #======================================
 # Sysconfig Update
 #--------------------------------------
-echo '** Update sysconfig entries...'
-baseUpdateSysConfig /etc/sysconfig/SuSEfirewall2 FW_CONFIGURATIONS_EXT sshd
-baseUpdateSysConfig /etc/sysconfig/console CONSOLE_FONT "$CONSOLE_FONT"
+#echo '** Update sysconfig entries...'
+#baseUpdateSysConfig /etc/sysconfig/SuSEfirewall2 FW_CONFIGURATIONS_EXT sshd
+#baseUpdateSysConfig /etc/sysconfig/console CONSOLE_FONT "$CONSOLE_FONT"
 # baseUpdateSysConfig /etc/sysconfig/snapper SNAPPER_CONFIGS root
-if [ "${kiwi_iname##*-for-}" != "OpenStack-Cloud" ]; then
-	baseUpdateSysConfig /etc/sysconfig/network/dhcp DHCLIENT_SET_HOSTNAME yes
-fi
+#if [ "${kiwi_iname##*-for-}" != "OpenStack-Cloud" ]; then
+#	baseUpdateSysConfig /etc/sysconfig/network/dhcp DHCLIENT_SET_HOSTNAME yes
+#fi
 
 if [ ! -s /var/log/zypper.log ]; then
 	> /var/log/zypper.log
@@ -113,23 +113,23 @@ fi
 
 rm -f /etc/zypp/repos.d/*
 
-zypper addrepo --type='rpm-md' 'http://192.168.124.1/repo/SUSE/Products/SLE-SERVER/12-SP2/x86_64/product' 'SLES12-SP2-Pool'
-zypper addrepo --type='rpm-md' --refresh 'http://192.168.124.1/repo/SUSE/Updates/SLE-SERVER/12-SP2/x86_64/update' 'SLES12-SP2-Updates'
-zypper addrepo --type='yast' 'http://192.168.124.1/install/SLES12-SP2-x86_64' 'SLES12-SP2-x86_64'
+#zypper addrepo --type='rpm-md' 'http://192.168.24.1/repo/SUSE/Products/SLE-SERVER/12-SP2/x86_64/product' 'SLES12-SP2-Pool'
+#zypper addrepo --type='rpm-md' --refresh 'http://192.168.24.1/repo/SUSE/Updates/SLE-SERVER/12-SP2/x86_64/update' 'SLES12-SP2-Updates'
+#zypper addrepo --type='yast' 'http://192.168.24.1/install/SLES12-SP2-x86_64' 'SLES12-SP2-x86_64'
 
-zypper addrepo --type='rpm-md' --refresh 'http://192.168.124.1/repo/SUSE/Products/SLE-Module-Adv-Systems-Management/12/x86_64/product' 'SLE-Modue-Adv-Systems-Management'
-zypper addrepo --type='rpm-md' --refresh 'http://192.168.124.1/repo/SUSE/Updates/SLE-Module-Adv-Systems-Management/12/x86_64/update' 'SLE-Modue-Adv-Systems-Management-Updates'
+#zypper addrepo --type='rpm-md' --refresh 'http://192.168.24.1/repo/SUSE/Products/SLE-Module-Adv-Systems-Management/12/x86_64/product' 'SLE-Modue-Adv-Systems-Management'
+#zypper addrepo --type='rpm-md' --refresh 'http://192.168.24.1/repo/SUSE/Updates/SLE-Module-Adv-Systems-Management/12/x86_64/update' 'SLE-Modue-Adv-Systems-Management-Updates'
 
-zypper addrepo --type='yast' 'http://192.168.124.1/install/SUSE-Cloud-7' 'Cloud'
-zypper addrepo --type='rpm-md' --refresh 'http://192.168.124.1/repo/SUSE/Updates/OpenStack-Cloud/7/x86_64/update' 'Cloud-Updates'
+#zypper addrepo --type='yast' 'http://192.168.24.1/install/SUSE-Cloud-7' 'Cloud'
+#zypper addrepo --type='rpm-md' --refresh 'http://192.168.24.1/repo/SUSE/Updates/OpenStack-Cloud/7/x86_64/update' 'Cloud-Updates'
 
-zypper addrepo --type='rpm-md' 'http://192.168.124.1/utilities' 'Utilities'
+#zypper addrepo --type='rpm-md' 'http://192.168.24.1/utilities' 'Utilities'
 
-echo "192.168.124.1:/exports/msata/smt /srv/www/htdocs/repo nfs ro 1 2" >> /etc/fstab
+#echo "192.168.24.1:/exports/msata/smt /srv/www/htdocs/repo nfs ro 1 2" >> /etc/fstab
 
 systemctl enable sshd
 
-mkdir -p /.snapshots /boot/grub2/{x86_64-efi,i386-pc} /var/{opt,log,lib,crash,tmp,spool} /var/lib/{pgsql,mailman,named} /tmp /srv /home
+#mkdir -p /.snapshots /boot/grub2/{x86_64-efi,i386-pc} /var/{opt,log,lib,crash,tmp,spool} /var/lib/{pgsql,mailman,named} /tmp /srv /home
 
 baseCleanMount
 
