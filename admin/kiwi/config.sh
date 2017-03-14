@@ -49,9 +49,9 @@ CONSOLE_FONT="lat9w-16.psfu"
 # prepare for setting root pw, timezone
 #--------------------------------------
 echo ** "reset machine settings"
-sed -i 's/^root:[^:]*:/root:*:/' /etc/shadow
+#sed -i 's/^root:[^:]*:/root:*:/' /etc/shadow
 rm /etc/machine-id
-rm /etc/localtime
+#rm /etc/localtime
 rm /var/lib/zypp/AnonymousUniqueId
 rm /var/lib/systemd/random-seed
 
@@ -80,13 +80,6 @@ baseSetRunlevel 3
 suseImportBuildKey
 
 #======================================
-# Firewall Configuration
-#--------------------------------------
-echo '** Configuring firewall...'
-chkconfig SuSEfirewall2_init on
-chkconfig SuSEfirewall2_setup on
-
-#======================================
 # Enable sshd
 #--------------------------------------
 chkconfig sshd on
@@ -112,20 +105,9 @@ if [ "${kiwi_iname##*-for-}" != "OpenStack-Cloud" ]; then
 	baseUpdateSysConfig /etc/sysconfig/network/dhcp DHCLIENT_SET_HOSTNAME yes
 fi
 
-# true
-#======================================
-# SSL Certificates Configuration
-#--------------------------------------
-echo '** Rehashing SSL Certificates...'
-update-ca-certificates
-
 if [ ! -s /var/log/zypper.log ]; then
 	> /var/log/zypper.log
 fi
-
-# only for debugging
-
-#systemctl enable debug-shell.service
 
 # Set repos
 
