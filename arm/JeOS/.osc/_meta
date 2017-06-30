@@ -1,0 +1,7 @@
+<package name="JeOS" project="openSUSE:Factory:ARM">
+  <title>Minimal appliance</title>
+  <description/>
+  <person userid="a_faerber" role="maintainer"/>
+  <person userid="dirkmueller" role="maintainer"/>
+</package>
+

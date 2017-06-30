@@ -1,0 +1,20 @@
+# Config for first boot on JeOS images.
+#
+# The purpose of cloud-init in JeOS images is to grow the SD image to the
+# target device's size. We don't need any of the more advanced features.
+
+datasource_list: [ None ]
+
+# The modules that run in the 'init' stage
+cloud_init_modules:
+ - growpart
+ - resizefs
+
+# The modules that run in the 'config' stage
+cloud_config_modules:
+ - mounts
+
+swap:
+   filename: /swap.img
+   size: "auto" # or size in bytes
+   maxsize: 524288000

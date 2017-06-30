@@ -1,0 +1,1219 @@
+-------------------------------------------------------------------
+Sat Jun 10 12:28:34 UTC 2017 - schwab@suse.de
+
+- Replace libgfortran3 by libgfortran4
+
+-------------------------------------------------------------------
+Sat Jun 10 07:18:19 UTC 2017 - schwab@suse.de
+
+- Remove susehelp, susehelp_en
+
+-------------------------------------------------------------------
+Tue Jun  6 20:00:33 UTC 2017 - agraf@suse.com
+
+- Drop explicit console= from EFI target; fw should provide
+  stdout-path these days
+
+-------------------------------------------------------------------
+Tue Jun  6 19:51:42 UTC 2017 - agraf@suse.com
+
+- Add efi and efi-pxe flavors for armv7
+
+-------------------------------------------------------------------
+Tue May 23 02:49:15 UTC 2017 - afaerber@suse.de
+
+- Install system-group-hardware and system-user-lp.
+  This fixes udev errors on first boot.
+* Fix package sort order
+
+-------------------------------------------------------------------
+Sun May 21 23:07:39 UTC 2017 - afaerber@suse.de
+
+- nanopik2: Install bcm43xx-firmware package
+
+-------------------------------------------------------------------
+Fri May 19 01:06:04 UTC 2017 - afaerber@suse.de
+
+- Prepare udooneo and clearfog
+* Group by SoC
+* Drop duplicate a20olinuxinolime and paz00
+* Fix indentation
+
+-------------------------------------------------------------------
+Fri May 19 00:03:38 UTC 2017 - afaerber@suse.de
+
+- Fix odroidc2 theoretical gfx console settings
+- Prepare nanopik2
+* Group by SoC
+
+-------------------------------------------------------------------
+Mon May  8 09:45:41 UTC 2017 - schwab@suse.de
+
+- Adjust names of patterns packages
+
+-------------------------------------------------------------------
+Wed May  3 10:07:52 UTC 2017 - schwab@suse.de
+
+- Add omap_dma also for panda
+
+-------------------------------------------------------------------
+Tue May  2 22:29:05 UTC 2017 - afaerber@suse.de
+
+- Fix console for fireflyrk3288 and tinker
+
+-------------------------------------------------------------------
+Fri Apr 21 05:01:46 UTC 2017 - afaerber@suse.de
+
+- Update rksd SPL installation for U-Boot v2017.05
+
+-------------------------------------------------------------------
+Thu Apr 20 20:07:25 UTC 2017 - afaerber@suse.de
+
+- Add nanopineoair (requires U-Boot v2017.05-rc2, kernel 4.12)
+- Add fireflyrk3288
+* Factory's u-boot-firefly-rk3288 v2017.03 is not booting -> Contrib
+- Add tinker (requires kernel 4.12)
+- Add odroidc2 (depends on odroidc2-firmware in Contrib:OdroidC2)
+
+-------------------------------------------------------------------
+Thu Apr 20 12:57:39 UTC 2017 - schwab@suse.de
+
+- Remove fileutils, sh-utils, textutils
+
+-------------------------------------------------------------------
+Tue Apr 18 20:12:41 UTC 2017 - dmueller@suse.com
+
+- prefer systemd-presets-branding-openSUSE and patterns-openSUSE-base
+  to fix choices for CaaSP/MicroOS
+
+-------------------------------------------------------------------
+Mon Mar 13 20:02:59 UTC 2017 - schwab@suse.de
+
+- Replace libffi4 by libffi7
+
+-------------------------------------------------------------------
+Fri Feb 24 19:08:19 UTC 2017 - afaerber@suse.de
+
+- nanopineo no longer needs to be a Contrib.
+
+-------------------------------------------------------------------
+Thu Feb 16 20:38:36 UTC 2017 - schwab@suse.de
+
+- Remove obsolete gimp-help-browser
+
+-------------------------------------------------------------------
+Thu Feb  9 12:06:05 UTC 2017 - agraf@suse.com
+
+- Prepare images for dracut firstboot (requires kiwi8, deactivated atm)
+  - Add cloud-init config and include code
+  - Change used moint point in u-boot install scripts to mnt-tmp (conflicted
+    with /mnt of the rootfs)
+- Install btrfsprogs on systems with btrfs rootfs
+
+-------------------------------------------------------------------
+Fri Feb  3 16:02:07 UTC 2017 - dmueller@suse.com
+
+- drop gstreamer-0_10-* related packages
+
+-------------------------------------------------------------------
+Fri Feb  3 00:51:13 UTC 2017 - stefan.bruens@rwth-aachen.de
+
+- Change kernel name from kernel-pine64 to kernel-sunxi64
+- Add dtb-allwinner to Pine64 image
+
+-------------------------------------------------------------------
+Wed Feb  1 12:24:36 UTC 2017 - agraf@suse.com
+
+- RPi3: Enable KMS again and bump CMA preallocation to 384MB,
+
+-------------------------------------------------------------------
+Tue Jan 31 02:05:57 UTC 2017 - stefan.bruens@rwth-aachen.de
+
+- Only tear down own loopdevs, otherwise later losetup -d calls
+  (during the script and back in kiwi itself) will fail.
+- Mount correct loopdev for DTB copying.
+
+-------------------------------------------------------------------
+Sat Jan 28 21:16:53 UTC 2017 - xxxxxmichl@googlemail.com
+
+- Add DE0-nano-SoC board support
+
+-------------------------------------------------------------------
+Sat Jan 28 16:32:34 UTC 2017 - stefan.bruens@rwth-aachen.de
+
+- Copy DTBs to boot partition in case it is separate to the root fs.
+
+-------------------------------------------------------------------
+Sat Jan 28 01:21:54 UTC 2017 - stefan.bruens@rwth-aachen.de
+
+- Cleanup, make change of directory scope more visible
+
+-------------------------------------------------------------------
+Fri Jan 20 23:30:29 UTC 2017 - agraf@suse.com
+
+- Add USB support during initrd on RPi (allows boot from USB)
+- Add console=tty0 as secondary console for JeOS on rpi3
+
+-------------------------------------------------------------------
+Tue Jan 17 22:57:33 UTC 2017 - stefan.bruens@rwth-aachen.de
+
+- Mark /var/log/journal as no-COW 
+
+-------------------------------------------------------------------
+Tue Jan 17 22:39:25 UTC 2017 - stefan.bruens@rwth-aachen.de
+
+- Correct whitespace, indentation was partially wrong, and one
+  Here Document EOF marker was not detected.
+
+-------------------------------------------------------------------
+Tue Jan 17 13:59:23 UTC 2017 - agraf@suse.com
+
+- Disable systemd-firstboot (boo#1020019)
+
+-------------------------------------------------------------------
+Tue Jan 17 10:43:16 UTC 2017 - dmueller@suse.com
+
+- clean up white space issues
+
+-------------------------------------------------------------------
+Mon Jan 16 23:03:40 UTC 2017 - agraf@suse.com
+
+- Enable CMA on RPi3 and reduce swiotlb size (boo#1020021)
+
+-------------------------------------------------------------------
+Mon Jan 16 01:12:26 UTC 2017 - stefan.bruens@rwth-aachen.de
+
+- Fix EFI detection for KIWI-ng
+
+-------------------------------------------------------------------
+Sat Jan 14 21:53:10 UTC 2017 - dmueller@suse.com
+
+- force software I/O MMU for RPi3 
+
+-------------------------------------------------------------------
+Fri Jan 13 18:13:01 UTC 2017 - dmueller@suse.com
+
+- Tag X11 images as graphical
+- Disable KMS for RPi3 as a temporary workaround
+
+-------------------------------------------------------------------
+Fri Jan 13 09:55:15 UTC 2017 - guillaume@opensuse.org
+
+- Sabrelite: re-add imx_ipuv3_crtc to list of modules to load
+
+-------------------------------------------------------------------
+Thu Jan 12 20:03:39 UTC 2017 - dmueller@suse.com
+
+- cleanup module loading for rpi3
+- disable HDMI hotplug
+
+-------------------------------------------------------------------
+Mon Jan  9 16:57:15 UTC 2017 - afaerber@suse.de
+
+- uboot-image-install.in: Add support for Marvell SPL
+
+-------------------------------------------------------------------
+Mon Jan  9 13:09:11 UTC 2017 - afaerber@suse.de
+
+- uboot-image-install.in: Prepare for unified imx6-spl.bin
+
+-------------------------------------------------------------------
+Sun Jan  8 15:19:45 UTC 2017 - afaerber@suse.de
+
+- Switch cubieboard2, cubietruck, bananapi to lpae kernel
+- uboot-image-setup.in: Fold sunxi cases together, rely on U-Boot
+- contribs: Drop a leftover raspberrypi3_aarch64, sort alphabetically
+- Add nanopineo
+- config.sh: Fix raspberrypi3 drm config
+
+-------------------------------------------------------------------
+Fri Jan  6 17:10:26 UTC 2017 - tbechtold@suse.com
+
+- Install bcm43xx-firmware package for cubox-i. It's
+  needed to get wifi working.
+
+-------------------------------------------------------------------
+Mon Jan  2 14:57:35 UTC 2017 - dmueller@suse.com
+
+- add temporary workaround by disabling btrfs for those flavors
+  that use EFI and use the u-boot integration due to missing
+  dtb files on the /boot partition.
+
+-------------------------------------------------------------------
+Mon Jan  2 14:08:05 UTC 2017 - dmueller@suse.com
+
+- include gsettings-backend-dconf (bsc#1013801)
+
+-------------------------------------------------------------------
+Mon Jan  2 13:50:32 UTC 2017 - dmueller@suse.com
+
+- remove host-specific files from image so that usage tracking works (bsc#1016660)
+
+-------------------------------------------------------------------
+Wed Nov 23 14:16:52 UTC 2016 - dmueller@suse.com
+
+- don't install twm so that the graphical login actually chooses
+  the preconfigured window manager by default
+
+-------------------------------------------------------------------
+Wed Nov 23 10:25:35 UTC 2016 - fvogt@suse.com
+
+- Add grub2-branding-openSUSE for themed GRUB2 menu
+
+-------------------------------------------------------------------
+Tue Nov 15 13:22:11 UTC 2016 - agraf@suse.com
+
+- Use new _multibuild feature in OBS
+- Add OBS-Exclusivearch
+- Move contrib list into its own file
+- Drop "quiet" from first boot
+- Remove efikamx flavor
+
+-------------------------------------------------------------------
+Fri Nov 11 21:27:27 UTC 2016 - dmueller@suse.com
+
+- add X11 image types
+- create subvolumes for btrfs images
+- remove mustang and thunderx flavor leftovers
+- move EFI images to btrfs
+- Rename raspberrypi3_aarch64 to raspberrypi3.aarch64, drop armv7 variant
+
+-------------------------------------------------------------------
+Wed Nov  9 16:33:21 UTC 2016 - dmueller@suse.com
+
+- set loglevel=3 on kernel cmdline
+
+-------------------------------------------------------------------
+Sun Nov  6 23:31:02 UTC 2016 - schwab@suse.de
+
+- replace NetworkManager-gnome by NetworkManager-applet
+
+-------------------------------------------------------------------
+Mon Oct 31 13:32:30 UTC 2016 - schwab@suse.de
+
+- remove obsolete bits from config.sh
+
+-------------------------------------------------------------------
+Sun Oct 30 19:25:35 UTC 2016 - dmueller@suse.com
+
+- drop thunderx flavor, use efi-aarch64 instead
+
+-------------------------------------------------------------------
+Sun Oct 30 19:24:44 UTC 2016 - dmueller@suse.com
+
+- switch to use prj config provided repositories instead of explicit
+  listing
+
+-------------------------------------------------------------------
+Tue Oct 25 14:19:43 UTC 2016 - guillaume@opensuse.org
+
+- remove imx_ipuv3_crtc from list of modules to load since it is 
+  now auto-loaded
+
+-------------------------------------------------------------------
+Tue Oct 25 11:56:03 UTC 2016 - guillaume@opensuse.org
+
+- Fix Beagleboard second boot by adding 'omap_dma' module to dracut 
+  initrd
+
+-------------------------------------------------------------------
+Tue Oct 18 18:28:43 UTC 2016 - afaerber@suse.de
+
+- Ensure that gdisk is available for firstboot on GPT (Marcus)
+* Drop gptfdisk from EXTRA_PACKAGES for any USE_EFI images and
+  enforce adding it in packagelist.inc
+* chromebook: Switch from PKG_TAG to PKG_BOOT_TAG
+
+-------------------------------------------------------------------
+Mon Oct 17 23:01:33 UTC 2016 - afaerber@suse.de
+
+- raspberrypi{,2,3}: Switch to EFI
+- raspberrypi*: Consistently handle console=
+- raspberrypi2: Enable X11 modesetting
+
+-------------------------------------------------------------------
+Sat Oct 15 10:55:19 UTC 2016 - afaerber@suse.de
+
+- Blacklist vc4 for raspberrypi aka rpi1 (boo#996614)
+- Prepare for sdhci-iproc in kernel 4.8
+- Switch to dtb-broadcom for raspberrypi3_aarch64 (boo#989713)
+* Handle bcm2835-sdhost and prepare omitting sdhci-iproc
+- Remove unused /etc/sysconfig/kernel leftovers
+* Clean up a propagating whitespace nit while at it
+
+-------------------------------------------------------------------
+Wed Oct 12 14:36:02 UTC 2016 - guillaume@opensuse.org
+
+- Use u-boot-rpi332b for RPi3 32 bits version instead of 
+  u-boot-rpi2
+
+-------------------------------------------------------------------
+Mon Oct 10 07:25:20 UTC 2016 - dmueller@suse.com
+
+- install bcm43xx-firmware for rpi3 as well
+
+-------------------------------------------------------------------
+Mon Oct 10 02:27:11 UTC 2016 - afaerber@suse.de
+
+- Replace firmware-pine64 with new pine64-firmware
+
+-------------------------------------------------------------------
+Sat Oct  8 13:12:50 UTC 2016 - afaerber@suse.de
+
+- Preinstall bcm43xx-firmware for cubietruck and aarch64 raspberrypi3
+
+-------------------------------------------------------------------
+Thu Oct  6 13:15:25 UTC 2016 - fvogt@suse.com
+
+- Support new pine64.img from firmware-pine64
+- Add 'fixed' module to dracut conf on sunxi targets
+- Remove dtb-allwinner as the u-boot supplied DT works
+
+-------------------------------------------------------------------
+Tue Sep 27 16:44:28 UTC 2016 - dmueller@suse.com
+
+- add workaround for extX filesystems with 64bit mode (bsc#989284)
+
+-------------------------------------------------------------------
+Sat Sep 24 12:44:02 UTC 2016 - dmueller@suse.com
+
+- resolve have-choices 
+
+-------------------------------------------------------------------
+Mon Sep 19 13:47:07 UTC 2016 - guillaume@opensuse.org
+
+- Fix i.MX6 sabrelite boot
+
+-------------------------------------------------------------------
+Fri Sep 16 00:53:24 UTC 2016 - afaerber@suse.de
+
+- Use UTC date as version number
+- Don't strip crypto modules on aarch64, we need ablk_helper.ko
+
+-------------------------------------------------------------------
+Sun Sep 11 14:35:44 UTC 2016 - afaerber@suse.de
+
+- Unify handling of raspberrypi3 and raspberrypi3_aarch64 flavors
+  so that we can name an upstream based aarch64 image raspberrypi3.
+  In particular the pre_checkin.sh and Images.kiwi.in logic is
+  changed, with IS_FLAVOR_raspberrypi3 being amended with
+  && !IS_ARCH_aarch64, and IS_FLAVOR_raspberrypi3 becoming
+  IS_FLAVOR_raspberrypi3 && IS_ARCH_aarch64. Files names and .kiwi
+  files are left identical by special-casing this flavor and by
+  introducing a $format_type variable based on $format.
+  Build- and runtime script choices, such as adding a Contrib repo,
+  are still made based on the full image name.
+* Limit the choice of $fdtfile to the downstream rpi2 kernel,
+  as done for raspberrypi2.
+
+-------------------------------------------------------------------
+Sat Sep 10 19:08:28 UTC 2016 - afaerber@suse.de
+
+- Update hikey to use new dtb-hisilicon package
+
+-------------------------------------------------------------------
+Sat Sep 10 17:06:31 UTC 2016 - afaerber@suse.de
+
+- Switch raspberrypi2 to upstream kernel (still experimental)
+
+-------------------------------------------------------------------
+Wed Sep  7 09:46:03 UTC 2016 - schwab@suse.de
+
+- Revert last change
+
+-------------------------------------------------------------------
+Tue Sep  6 12:02:39 UTC 2016 - guillaume@opensuse.org
+
+- Add cdrtools-cdrkit-compat for all flavours and remove 
+cdrkit-cdrtools-compat and genisoimage
+
+-------------------------------------------------------------------
+Mon Sep  5 10:53:39 UTC 2016 - dmueller@suse.com
+
+- add trailing whitespace for add_drivers dracut config files
+
+-------------------------------------------------------------------
+Fri Aug 19 22:17:48 UTC 2016 - schwab@suse.de
+
+- Remove ConsoleKit-x11
+
+-------------------------------------------------------------------
+Mon Aug 15 18:04:26 UTC 2016 - dmueller@suse.com
+
+- set displayname for all images to avoid bugs with long
+  paths in firmware (bsc#993401)
+
+-------------------------------------------------------------------
+Sun Aug 14 08:03:24 UTC 2016 - schwab@suse.de
+
+- Replace gnome-games by its split off packages
+
+-------------------------------------------------------------------
+Sun Aug 14 07:44:10 UTC 2016 - schwab@suse.de
+
+- xfce4-terminal no longer provides Terminal
+
+-------------------------------------------------------------------
+Fri Jul 22 12:12:07 UTC 2016 - guillaume@opensuse.org
+
+- LXQT image: Fix "have choixe" by replacing 
+  kdebase4-runtime-branding-openSUSE by kdebase4-openSUSE
+
+-------------------------------------------------------------------
+Fri Jul 22 09:33:58 UTC 2016 - guillaume@opensuse.org
+
+- Raspberry Pi: Flag 1st partition as (legacy) bootable
+
+-------------------------------------------------------------------
+Fri Jul 22 08:51:37 UTC 2016 - guillaume@opensuse.org
+
+- Raspberry Pi: replace raspberrypi-firmware-branding-openSUSE package 
+  by raspberrypi-firmware-config-rpi{,2,3}
+
+-------------------------------------------------------------------
+Fri Jul 22 07:17:32 UTC 2016 - guillaume@opensuse.org
+
+- chromebook: remove mrvl-firmware package since it is now in 
+  kernel-firmware package
+
+-------------------------------------------------------------------
+Thu Jul 21 11:57:52 UTC 2016 - guillaume@opensuse.org
+
+- Fix chromebook 2nd boot
+
+-------------------------------------------------------------------
+Wed Jul 20 14:39:53 UTC 2016 - guillaume@opensuse.org
+
+- Use KERNEL_CMDLINE_GFX for LXQT images
+
+-------------------------------------------------------------------
+Wed Jul 20 12:38:55 UTC 2016 - guillaume@opensuse.org
+
+- Switch from u-boot-am335xevm to u-boot-am335xboneblack for 
+  beaglebone image
+
+-------------------------------------------------------------------
+Fri Jul 15 11:01:50 UTC 2016 - dmueller@suse.com
+
+- remove extra whitespace in package names
+
+-------------------------------------------------------------------
+Sun Jul 10 07:49:12 UTC 2016 - agraf@suse.com
+
+- Fix up gdisk paths for install/firstboot times
+
+-------------------------------------------------------------------
+Tue Jun 28 06:26:58 UTC 2016 - agraf@suse.com
+
+- Add x86_64 JeOS image descriptions
+
+-------------------------------------------------------------------
+Sun Jun 12 18:28:48 UTC 2016 - agraf@suse.com
+
+- Use kms xorg driver on 64bit rpi3
+- Fix loopdev unmapping with kpartx
+- Add rpi3 aarch64 contrib as zypper repo
+
+-------------------------------------------------------------------
+Thu Jun  9 09:20:13 UTC 2016 - dmueller@suse.com
+
+- set up some more sensible defaults to make it yast2-image compatible 
+
+-------------------------------------------------------------------
+Fri Jun  3 08:34:12 UTC 2016 - agraf@suse.com
+
+- merge preCallInit.sh and uboot-image-setup.in
+  -> reinstall SPL / U-Boot on first boot
+- convert GPT to MBR on systems where SPL overlaps with GPT
+- use "Image" and "booti" on AArch64 boot.scr systems
+- move rpi3 aarch64 to efi
+- use ttyS0 for rpi3
+- strip initrd even more
+
+-------------------------------------------------------------------
+Sat May 28 12:17:38 UTC 2016 - schwab@suse.de
+
+- Remove libfreerdp-plugins
+
+-------------------------------------------------------------------
+Wed May 25 12:12:11 UTC 2016 - dmueller@suse.com
+
+- use snapshots for btrfs images
+
+-------------------------------------------------------------------
+Wed May 25 10:52:55 UTC 2016 - dmueller@suse.com
+
+- include u-boot for raspberrypi3_aarch64
+
+-------------------------------------------------------------------
+Wed May  4 23:54:17 UTC 2016 - dmueller@suse.com
+
+- updates for raspberrypi3_aarch64
+
+-------------------------------------------------------------------
+Fri Apr 22 12:16:43 UTC 2016 - agraf@suse.com
+
+- Don't include ubot-setup-flavor.tgz for rootfs images, as we don't
+  generate the tgz for them
+
+-------------------------------------------------------------------
+Fri Apr 22 07:13:28 UTC 2016 - dmueller@suse.com
+
+- add ca-certificates to JeOS
+
+-------------------------------------------------------------------
+Tue Apr 19 08:49:41 UTC 2016 - agraf@suse.com
+
+- Always include uboot-setup-flavor.tgz to ensure we have the scriptlet
+  that removes rootflags=size=100% from the grub configuration
+
+-------------------------------------------------------------------
+Mon Apr 18 08:01:06 UTC 2016 - dmueller@suse.com
+
+- further work on efi-devel flavor
+
+-------------------------------------------------------------------
+Sun Apr 17 18:19:57 UTC 2016 - dmueller@suse.com
+
+- add efi-devel aarch64 flavor
+- add net-tools-deprecated to all images
+
+-------------------------------------------------------------------
+Fri Apr 15 09:09:17 UTC 2016 - dmueller@suse.com
+
+- add raspberrypi3_aarch64 flavor
+
+-------------------------------------------------------------------
+Wed Apr  6 07:50:57 UTC 2016 - dmueller@suse.com
+
+- generate kiwi 8.x compatible kiwi hooks
+
+-------------------------------------------------------------------
+Fri Apr  1 01:01:54 UTC 2016 - agraf@suse.com
+
+- Use uname for generic zypper repo determination
+
+-------------------------------------------------------------------
+Fri Apr  1 00:41:24 UTC 2016 - agraf@suse.com
+
+- Move non-Uboot firstboot scripts to preCallInit.sh
+  - This fixes EFI images that depend on firstboot scripts, which
+    means all by now because of the rootflags replacement
+
+-------------------------------------------------------------------
+Thu Mar 31 08:07:52 UTC 2016 - schwab@suse.de
+
+- Properly clean up after kpartx in uboot-image-*-install
+
+-------------------------------------------------------------------
+Tue Mar 29 22:31:55 UTC 2016 - agraf@suse.com
+
+- Minor pine64 fixes
+- Shrink GPT on sunxi systems to make space for SPL
+
+-------------------------------------------------------------------
+Tue Mar 29 19:38:59 UTC 2016 - dmueller@suse.com
+
+- fix have-choices for the last tumbleweed updates
+
+-------------------------------------------------------------------
+Fri Mar 25 19:58:25 UTC 2016 - dmueller@suse.com
+
+- include brmfmac firmware for RPi 3
+
+-------------------------------------------------------------------
+Thu Mar 24 10:49:58 UTC 2016 - agraf@suse.com
+
+- Remove mustang flavor
+- Move m400 flavor to JeOS only
+- Move to a new naming schema where "-pxe" images build with pxe
+- Move m400 -> m400-pxe
+- Move midway -> midway-pxe
+- Remove highbank (hardware obsolete)
+- Remove hip04d01 (unmaintained)
+- Remove hip05d02 (upstream by now)
+- Move efi.aarch64 to non-pxe
+- Add efi-pxe.aarch64 flavor with JeOS only
+
+-------------------------------------------------------------------
+Wed Mar  9 14:13:46 UTC 2016 - guillaume@opensuse.org
+
+- Auto load useful modules not auto-loaded for SabreLite:
+  * Fix HDMI output
+  * Make use of (imx6q-)cpufreq
+
+-------------------------------------------------------------------
+Wed Mar  9 09:29:35 UTC 2016 - agraf@suse.com
+
+- Add pine64 contrib description
+
+-------------------------------------------------------------------
+Mon Mar  7 10:20:10 UTC 2016 - guillaume@opensuse.org
+
+- Fix bootargs on 1st boot for Raspberry Pi 1, 2 and 3. (downstream 
+  kernels only)
+
+-------------------------------------------------------------------
+Mon Mar  7 10:14:24 UTC 2016 - guillaume@opensuse.org
+
+- Make use of bootkernel var also in scripts in compressed archives
+
+-------------------------------------------------------------------
+Fri Mar  4 15:18:25 UTC 2016 - agraf@suse.com
+
+- Change date to YYYY.MM.DD instead (seems more readable)
+
+-------------------------------------------------------------------
+Fri Mar  4 09:32:09 UTC 2016 - agraf@suse.com
+
+- move panda target to efi based boot
+
+-------------------------------------------------------------------
+Fri Mar  4 00:44:24 UTC 2016 - agraf@suse.com
+
+- Change date to YYYYMMDD.0.0 to make kiwi's version format check happy
+
+-------------------------------------------------------------------
+Thu Mar  3 18:11:02 UTC 2016 - dmueller@suse.com
+
+- fix raspberrypi3 flavor
+- use date of changelog entry for image version
+
+-------------------------------------------------------------------
+Thu Mar  3 15:41:24 UTC 2016 - guillaume@opensuse.org
+
+- Make use of bootkernel var in uboot-image*
+
+-------------------------------------------------------------------
+Tue Mar  1 07:37:07 UTC 2016 - agraf@suse.com
+
+- add rootflags=size=100% to have tmpfs span all ram
+  - allows for bigger initramfs
+- strip rootflags=size=100% from kernel cmdline after firstboot
+- move firstboot uboot install script to separate file
+- add update-bootloader --reinit for arm efi to regenerate bootarm.efi
+
+-------------------------------------------------------------------
+Mon Feb 29 23:34:55 UTC 2016 - agraf@suse.com
+
+- put u-boot directly on the SD card at a hard offset on omap
+  this makes it easier to move to efi
+- move beagle* targets to efi based boot
+
+-------------------------------------------------------------------
+Mon Feb 29 15:27:47 UTC 2016 - dmueller@suse.com
+
+- add raspberrypi3 flavor
+
+-------------------------------------------------------------------
+Mon Feb 29 13:04:57 UTC 2016 - dmueller@suse.com
+
+- remove stripKernel call again which breaks symlink for rebooting
+
+-------------------------------------------------------------------
+Thu Feb 25 15:17:29 UTC 2016 - guillaume@opensuse.org
+
+- Raspberrypi:
+  * Use u-boot defined fdtfile when upstream kernel is used (u-boot 
+  and upstream kernel are now in sync)
+  * Update u-boot script for the new downstream kernel
+  * Fix bootargs when downstream kernel is used
+
+-------------------------------------------------------------------
+Sat Feb 20 19:18:31 UTC 2016 - dmueller@suse.com
+
+- strip kernel/firmware in initrd
+- add DTB for vexpress flavor
+- don't strip qemu-cputype-armv6
+
+-------------------------------------------------------------------
+Wed Feb 17 12:30:14 UTC 2016 - guillaume@opensuse.org
+
+- Add missing TYPE_LXQT image type definition
+
+-------------------------------------------------------------------
+Wed Feb 17 10:04:32 UTC 2016 - guillaume@opensuse.org
+
+- replace ttyO* by ttyS* for omap boards (panda, beagle and beaglebone)
+- Keep console on serial for panda and beagle graphical images
+
+-------------------------------------------------------------------
+Mon Feb 15 13:18:38 UTC 2016 - dmueller@suse.com
+
+- rename E17-* to E20-*
+
+-------------------------------------------------------------------
+Thu Feb 11 07:58:09 UTC 2016 - dmueller@suse.com
+
+- fix multiple-choices for yast2 dependencies
+
+-------------------------------------------------------------------
+Thu Feb  4 20:25:30 UTC 2016 - dmueller@suse.com
+
+- relocate initrd for raspberrypi as well
+
+-------------------------------------------------------------------
+Wed Feb  3 16:26:12 UTC 2016 - dmueller@suse.com
+
+- remove ohci from arndale image, remove phy-samsung* (was renamed to phy-exynos-*)
+
+-------------------------------------------------------------------
+Wed Feb  3 09:54:57 UTC 2016 - guillaume@opensuse.org
+
+- Chromebook: Fix kpartx loop device detection
+
+-------------------------------------------------------------------
+Sun Jan 31 20:00:50 UTC 2016 - dmueller@suse.com
+
+- unset initrd_high for RaspberryPi 2 to fix boot
+  issue (does not support inplace/zero-copy initrd booting)
+- set quiet to bootopts to remove annoying audit log on console
+
+-------------------------------------------------------------------
+Wed Jan 27 14:47:36 UTC 2016 - dmueller@suse.com
+
+- set skip-verify=true
+
+-------------------------------------------------------------------
+Fri Jan 22 12:53:57 UTC 2016 - guillaume@opensuse.org
+
+- Add 'bootkernel="custom"' to kiwi config file to only use wanted
+  kernel, not kernel-default. (Fix non -default kernel initrd and 
+  boot, such as -lpae)
+
+-------------------------------------------------------------------
+Mon Jan 18 02:25:45 UTC 2016 - agraf@suse.com
+
+- Remove rootfstype=ramfs again. Kiwi passes that after firstboot into the
+  boot parameters of the installed system, overriding dracut's fs detection,
+  hence making every second-boot mount the rootfs as fstype=ramfs, breaking
+  the boot...
+
+-------------------------------------------------------------------
+Wed Jan 13 03:10:48 UTC 2016 - agraf@suse.com
+
+- Add hikey (Contrib) description
+
+-------------------------------------------------------------------
+Wed Jan 13 01:37:21 UTC 2016 - agraf@suse.com
+
+- add rootfstype=ram to all kernel command lines, it's needed for
+  the firstboot initrd on low ram systems (<2GB for aarch64)
+
+-------------------------------------------------------------------
+Tue Jan 12 10:41:11 UTC 2016 - guillaume@opensuse.org
+
+- Do not define 'target' variable in u-boot script (fix cubox-i)
+
+-------------------------------------------------------------------
+Wed Dec 23 04:26:22 UTC 2015 - afaerber@suse.de
+
+- Partially revert last change for raspberrypi2
+* $bootkernel is unexpectedly not rpi2, comment out the condition
+- Apply bootable partition change for Raspberry Pi on firstboot, too
+
+-------------------------------------------------------------------
+Tue Dec 22 22:58:02 UTC 2015 - afaerber@suse.de
+
+- kernel-rpi2 does use FDT (by now?)
+* Tidy up raspberrypi[2] bootargs while at it
+
+-------------------------------------------------------------------
+Tue Dec 22 21:31:43 UTC 2015 - afaerber@suse.de
+
+- Mark second partition bootable also in GPT for Raspberry Pi
+* Change the partition name while at it (it's not UEFI)
+
+-------------------------------------------------------------------
+Tue Dec 22 04:13:14 UTC 2015 - afaerber@suse.de
+
+- Drop duplicate FAT formatting and file copying for Raspberry Pi
+
+-------------------------------------------------------------------
+Sun Dec 20 19:24:33 UTC 2015 - afaerber@suse.de
+
+- Add audit to package list (avoids kernel spam on serial console)
+- Mark the second partition bootable for Raspberry Pi.
+  Recent U-Boot versions check this for determining which partitions
+  to search extlinux.conf and boot.scr files on.
+* Drop obsolete boot.scr on first partition.
+  Will slightly speed up boot and simplifies JeOS scripts.
+- raspberrypi-firmware files are now in /boot/vc
+* u-boot-rpi and u-boot-rpi2 files are not yet, conditionalize them
+- Include raspberrypi-firmware-branding-openSUSE
+* Drop ad-hoc Config.txt generation
+
+-------------------------------------------------------------------
+Thu Dec 10 15:57:30 UTC 2015 - dmueller@suse.com
+
+- blacklist xhci_hcd for Arndale boards
+
+-------------------------------------------------------------------
+Mon Dec  7 15:17:12 UTC 2015 - agraf@suse.com
+
+- Remove pihwm from Raspberry Pi package list (auxiliary package)
+
+-------------------------------------------------------------------
+Mon Dec  7 12:46:59 UTC 2015 - afaerber@suse.de
+
+- Drop Contrib repo for Raspberry Pi (requested by Alex)
+- Fix typo in output
+
+-------------------------------------------------------------------
+Sat Dec  5 11:07:47 UTC 2015 - cyberorg@opensuse.org
+
+- Use branding-openSUSE for all images 
+
+-------------------------------------------------------------------
+Fri Nov 27 19:27:41 UTC 2015 - schwab@suse.de
+
+- use oemboot/suse-tumbleweed boot description
+- include MozillaFirefox for all archs
+
+-------------------------------------------------------------------
+Wed Nov 25 11:41:05 UTC 2015 - dmueller@suse.com
+
+- add oxygen5-icon-theme to resolve choice for E17
+
+-------------------------------------------------------------------
+Tue Nov 17 12:52:24 UTC 2015 - dmueller@suse.com
+
+- add irqbalance for thunderx and efi images
+
+-------------------------------------------------------------------
+Thu Nov 12 11:37:20 UTC 2015 - mbrugger@suse.com
+
+- fix URL for contrib:thunderx repository 
+
+-------------------------------------------------------------------
+Thu Nov 12 09:27:56 UTC 2015 - dmueller@suse.com
+
+- fix update repositories for thunderx image
+
+-------------------------------------------------------------------
+Wed Oct 28 14:40:00 UTC 2015 - dmueller@suse.com
+
+- reinclude irqbalance for cuboxi 
+
+-------------------------------------------------------------------
+Thu Oct 22 13:29:04 UTC 2015 - guillaume@opensuse.org
+
+- cuboxi: u-boot: upstream u-boot uses findfdt cmd instead of 
+  autodetectfdt
+
+-------------------------------------------------------------------
+Wed Oct 21 08:34:07 UTC 2015 - tbechtold@suse.com
+
+- cuboxi:
+  * copy u-boot.img at correct address
+    (see u-boot git tree board/solidrun/mx6cuboxi/README)
+  * install u-boot-mx6cuboxi instead of u-boot-mx6cubox-i
+  * don't install irqbalance
+  * remove contrib repository
+
+-------------------------------------------------------------------
+Tue Oct 20 18:38:23 UTC 2015 - dmueller@suse.com
+
+- switch cuboxi to standard kernel/u-boot 
+
+-------------------------------------------------------------------
+Fri Oct 16 08:18:51 UTC 2015 - guillaume@opensuse.org
+
+- Rpi/Rpi2: pass MAC addr to Linux
+
+-------------------------------------------------------------------
+Wed Oct 14 08:06:31 UTC 2015 - guillaume@opensuse.org
+
+- Rework ${fdtfile} usage by adding ${fdtfolder}. This allow to use
+  default ${fdtfile} definitions from upstream u-boot.
+
+-------------------------------------------------------------------
+Wed Oct  7 09:06:02 UTC 2015 - guillaume@opensuse.org
+
+- Fix boot on Beagleboard xM
+
+-------------------------------------------------------------------
+Mon Sep 28 09:46:11 UTC 2015 - guillaume@opensuse.org
+
+- Replace libyui-qt-pkg6 by libyui-qt-pkg7
+
+-------------------------------------------------------------------
+Mon Sep 28 08:36:33 UTC 2015 - guillaume@opensuse.org
+
+- Odroid: 
+  * Use 'load' command, since ext2load is not available
+  * Add kernel, fdt and initrd addresses.
+
+-------------------------------------------------------------------
+Mon Sep 28 08:36:01 UTC 2015 - guillaume@opensuse.org
+
+- Add libsystemd0 to package list (have choice with libsystemd0-mini)
+
+-------------------------------------------------------------------
+Sat Sep  5 13:30:44 UTC 2015 - guillaume@opensuse.org
+
+- Add drivers/pwm/* to initrd for Chromebook to get display working
+  on 1st boot 
+
+-------------------------------------------------------------------
+Fri Sep  4 11:02:43 UTC 2015 - dmueller@suse.com
+
+- add JeOS-thunderx, rename from *-thunder
+
+-------------------------------------------------------------------
+Thu Sep  3 20:22:10 UTC 2015 - matwey.kornilov@gmail.com
+
+- Set explicit baudrate to console for OMAP serial.
+
+-------------------------------------------------------------------
+Wed Sep  2 16:55:35 UTC 2015 - guillaume@opensuse.org
+
+- Add odroid and odroidxu3 support
+
+-------------------------------------------------------------------
+Tue Sep  1 13:29:25 UTC 2015 - guillaume@opensuse.org
+
+- Fix force load of modules needed to get display working fine on 
+  chromebook
+
+-------------------------------------------------------------------
+Thu Aug 27 14:39:43 UTC 2015 - guillaume@opensuse.org
+
+- Fix corrupted script in cgpt-table-update.tgz
+
+-------------------------------------------------------------------
+Mon Aug 17 23:21:16 UTC 2015 - zombah@gmail.com
+
+- Add serial console output cmdline for Chromebook 
+
+-------------------------------------------------------------------
+Mon Aug 17 13:04:24 UTC 2015 - guillaume@opensuse.org
+
+- Force load of modules needed to get display working fine on chromebook
+
+-------------------------------------------------------------------
+Mon Aug 17 09:18:54 UTC 2015 - guillaume@opensuse.org
+
+- Fix Chromebook boot with latest u-boot (u-boot now looks for 
+  bootscripts on bootable partitions only, so flag it bootable)
+
+-------------------------------------------------------------------
+Thu Aug  6 16:02:29 UTC 2015 - matwey.kornilov@gmail.com
+
+- Add ${append} to bootargs u-boot env variable in boot.srcipt
+  This is done to be consistent with KIWI
+
+-------------------------------------------------------------------
+Mon Aug 03 15:01:00 UTC 2015 - josua.mayer97@gmail.com
+
+ - Add IMX& Contrib repo to Cubox-i images
+ - boot cubox-i JeOS images to serial console only, graphical ones to the screen
+
+-------------------------------------------------------------------
+Tue Jun 30 06:46:23 UTC 2015 - agraf@suse.com
+
+- Add HIP05D02 Contrib
+
+-------------------------------------------------------------------
+Tue Jun 16 14:26:14 UTC 2015 - guillaume@opensuse.org
+
+- Fix beagleboard xM boot when validatefdt is run in u-boot script
+
+-------------------------------------------------------------------
+Tue Jun 16 10:15:09 UTC 2015 - agraf@suse.com
+
+- use btrfs on EFI AArch64 systems
+
+-------------------------------------------------------------------
+Mon Jun 15 15:37:45 UTC 2015 - guillaume@opensuse.org
+
+- 'sudo' package now available for JeOS images too.
+
+-------------------------------------------------------------------
+Mon Jun 15 15:27:51 UTC 2015 - guillaume@opensuse.org
+
+- BeagleBone Black: Enable boot on internal eMMC if external uSD
+  fails
+
+-------------------------------------------------------------------
+Sun Jun 14 19:24:56 UTC 2015 - dmueller@suse.com
+
+- switch to tumbleweed download links 
+
+-------------------------------------------------------------------
+Thu Jun 11 20:17:57 UTC 2015 - guillaume@opensuse.org
+
+- Add tda998x module in config.sh for beaglebone (black) to fix 
+  HDMI output
+
+-------------------------------------------------------------------
+Thu Jun 11 08:23:20 UTC 2015 - guillaume@opensuse.org
+
+- Add new packages: 
+  * which
+  * yast2-firewall
+- Wireless packages (wireless-tools, wpa_supplicant) and SuSEfirewall2
+  are now also available for JeOS too
+- Remove OMAP DSP related packages since support has been dropped 
+  from kernel
+- Enlightenment packages updates (e17 => e19):
+  * Replace e17 by enlightenment
+  * Replace e17-theme-openSUSE by enlightenment-theme-openSUSE
+  * Replace e17-branding-openSUSE by enlightenment-branding-openSUSE
+
+-------------------------------------------------------------------
+Sat May 16 12:54:29 CEST 2015 - xxxxxmichl@googlemail.com
+
+- add support for more Olimex boards.
+
+-------------------------------------------------------------------
+Wed Apr 29 21:33:38 UTC 2015 - agraf@suse.com
+
+- remove seattle flavor, efi should cover it now
+- move to pure console=ttyAMA0 for efi flavor, only mustang needs ttyS0
+- move efi flavor to PXE enabled
+
+-------------------------------------------------------------------
+Sat Apr 11 21:00:52 UTC 2015 - agraf@suse.com
+
+- rpi2: Enable hybrid GPT recovery on firstboot
+
+-------------------------------------------------------------------
+Thu Apr  9 20:04:16 UTC 2015 - agraf@suse.com
+
+- rpi2: Add rpi2 repo to repo list in installed systems
+
+-------------------------------------------------------------------
+Wed Mar 25 19:50:58 UTC 2015 - agraf@suse.com
+
+- m400: Use enp1s0 as eth name
+
+-------------------------------------------------------------------
+Wed Mar 25 19:01:03 UTC 2015 - agraf@suse.com
+
+- Add HP m400 Cartridge Contrib support
+
+-------------------------------------------------------------------
+Mon Mar 23 17:12:32 UTC 2015 - agraf@suse.com
+
+- Remove mustang contrib repo
+
+-------------------------------------------------------------------
+Fri Mar 13 11:02:18 UTC 2015 - guillaume@opensuse.org
+
+- Update post-install script (cgpt kiwi hook) to fix Chromebook 
+  2nd boot
+
+-------------------------------------------------------------------
+Thu Feb 26 19:26:06 UTC 2015 - xxxxxmichl@googlemail.com
+
+- add graphics support for Olimex A10-OLinuXino-LIME and
+  A20-OLinuXIno-LIME2 boards.
+
+-------------------------------------------------------------------
+Thu Feb 26 14:59:26 UTC 2015 - guillaume@opensuse.org
+
+- Add more modules to first initrd
+
+-------------------------------------------------------------------
+Thu Feb 26 14:50:03 UTC 2015 - guillaume@opensuse.org
+
+- Add modules (ahci and drm) to initrd for SabreLite (in config.sh)
+
+-------------------------------------------------------------------
+Thu Feb 26 14:01:20 UTC 2015 - guillaume@opensuse.org
+
+- Add splash screen support in u-boot (enabled and tested on SabreLite)
+
+-------------------------------------------------------------------
+Tue Feb 24 09:56:58 UTC 2015 - guillaume@opensuse.org
+
+- Remove redundant 'bootype=bootz' in uboot-image-setup.in
+  since it is the default value.
+
+-------------------------------------------------------------------
+Mon Feb 16 09:03:32 UTC 2015 - guillaume@opensuse.org
+
+- Enhance exynos boards initrd (Chromebook and arndale)
+
+-------------------------------------------------------------------
+Mon Feb 16 09:00:27 UTC 2015 - guillaume@opensuse.org
+
+- Rename u-boot-rpib to u-boot-rpi
+
+-------------------------------------------------------------------
+Fri Dec 19 19:26:06 UTC 2014 - xxxxxmichl@googlemail.com
+
+- add support for Olimex A10-OLinuXino-LIME and A20-OLinuXIno-LIME2
+  boards.
+
+-------------------------------------------------------------------
+Sun Dec  7 23:05:06 UTC 2014 - agraf@suse.com
+
+- disable firstboot, it's been broken in 90% of the cases where I
+  deployed an image
+
+-------------------------------------------------------------------
+Fri Dec  5 00:07:55 UTC 2014 - agraf@suse.com
+
+- fix grub2 package name for 32bit efi
+
+-------------------------------------------------------------------
+Thu Dec  4 16:39:33 UTC 2014 - guillaume@opensuse.org
+
+- chromebook: fix cgpt relative path (not in $PATH) in uboot image
+install script
+
+-------------------------------------------------------------------
+Thu Dec  4 15:00:01 UTC 2014 - guillaume@opensuse.org
+
+- chromebook: fix uboot image install script (fix path)
+
+-------------------------------------------------------------------
+Thu Dec  4 14:13:39 UTC 2014 - agraf@suse.com
+
+- add hip04d01 target
+
+-------------------------------------------------------------------
+Thu Dec  4 09:37:32 UTC 2014 - guillaume@opensuse.org
+
+- Chromebook update:
+  * switch from broken downstream kernel-chromebook to upstream kernel-lpae
+  * switch from downstream u-boot-chromebook to upstream u-boot-snow
+  * add missing initrd modules handling (in config.sh) for chromebook and
+  add USB modules for exynos boards (arndale and chromebook)
+  * update u-boot script (bootype, fs)
+  * Update cgpt-table-update.tgz to fix 2nd boot when booted from USB too
+  * add /etc/modules-load.d/cros-ec-keyb.conf to be able to use the keyboard
+
+-------------------------------------------------------------------
+Wed Dec  3 23:58:53 UTC 2014 - agraf@suse.com
+
+- generate pxe files for thunder
+- use "thunder" flavor for thunder
+
+-------------------------------------------------------------------
+Wed Nov 26 14:17:39 UTC 2014 - agraf@suse.com
+
+- Add helper script to identify unlinked images
+
+-------------------------------------------------------------------
+Wed Nov 26 10:37:18 UTC 2014 - guillaume@opensuse.org
+
+- LXQT image: switch from lightdm kde greeter to gtk greeter (fix X start)
+
+-------------------------------------------------------------------
+Tue Nov 25 15:12:39 UTC 2014 - guillaume@opensuse.org
+
+- Run validatefdt in u-boot when available (for Beagleboard xM)
+
+-------------------------------------------------------------------
+Wed Nov 19 10:10:47 UTC 2014 - guillaume@opensuse.org
+
+- Add LXQt as new desktop image
+
+-------------------------------------------------------------------
+Tue Nov 18 17:37:50 UTC 2014 - guillaume@opensuse.org
+
+- Add JeOS.changes file to follow changes
+
