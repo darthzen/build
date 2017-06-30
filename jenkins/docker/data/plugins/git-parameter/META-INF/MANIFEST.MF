@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: bklimas
+Build-Jdk: 1.8.0_65
+Extension-Name: git-parameter
+Specification-Title: Assign git tag or revision number as parameter in
+  Parametrized builds
+Implementation-Title: git-parameter
+Implementation-Version: 0.8.0
+Group-Id: org.jenkins-ci.tools
+Short-Name: git-parameter
+Long-Name: Git Parameter Plug-In
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Git+Parameter+Plugin
+Plugin-Version: 0.8.0
+Hudson-Version: 1.651.1
+Jenkins-Version: 1.651.1
+Plugin-Dependencies: rebuild:1.25;resolution:=optional,git:2.4.4,jquer
+ y:1.11.2-0
+Plugin-Developers: Boguslaw Klimas:klimas7:klimas7@gmail.com,Niklaus G
+ iger:ngiger:niklaus.giger@member.fsf.org,Lukasz Milkowski:lukanus:
+
