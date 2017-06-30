@@ -11,7 +11,7 @@
 set -x
 
 diskname=$1
-flavor=pine64
+flavor=espressobin
 is_firstboot=
 
 if [ "$is_firstboot" ]; then

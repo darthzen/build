@@ -2,7 +2,7 @@
 
 set -x
 
-flavor=raspberrypi3_aarch64
+flavor=espressobin
 target=firstboot
 kerneladdr=
 ramdiskaddr=
@@ -395,6 +395,17 @@ case $flavor in
     fdtaddr=0x40800000
     should_load_fdt=1
     should_use_fdt=1
+    ;;
+  espressobin)
+    fs=""
+    kerneladdr=0x2000000
+    ramdiskaddr=calculate
+    fdtaddr=calculate
+    should_load_fdt=1
+    should_use_fdt=1
+    fdtfile=armada-3720-community.dtb
+    fdt_high=
+    initrd_high=
     ;;
 esac
 
