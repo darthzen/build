@@ -1,0 +1,5 @@
+console=ttyMV0,115200 earlycon=ar3700_uart,0xd0012000 root=/dev/sda2 rootwait rw fsck.repair=yes governor=ondemand no_console_suspend mtdparts=spi32766.0:1536k(uboot),64k(uboot-environment),-(reserved) net.ifnames=0 elevator=noop
+
+onsole=ttyMV0,115200 earlycon=ar3700_uart,0xd0012000 root=/dev/mmcblk0p1 initrd=boot/initrd rw rootwait mmc_blksavd_rmfxdo debug
+
+scsi start;ext4load scsi 0:2 $kernel_addr $image_name;ext4load usb 0:1 $fdt_addr $fdt_name;setenv bootargs $bootscsiargs; booti $kernel_addr - $fdt_addr

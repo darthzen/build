@@ -1,0 +1,48 @@
+#!/bin/bash
+
+CHANGES="espressobin-config-changes"
+ADDS="espressobin-config-adds"
+EXCLUDES="espressobin-config-excluded"
+PRIMARY="ioft-mvebu_v8_lsp_defconfig"
+SECONDARY="/usr/src/linux-4.12.8-1/.config"
+MERGED="kernel-espressobin.config"
+
+rm -f ${CHANGES} ${EXCLUDES} ${ADDS} ${MERGED}
+touch ${CHANGES} ${EXCLUDES} ${ADDS} 
+echo "${PRIMARY}|${SECONDARY}" > ${CHANGES}
+cp -f ${SECONDARY} ${MERGED}
+
+echo "Merging ${PRIMARY} onto ${SECONDARY}..."
+
+while read TMP; do
+    if [[ ! -z `echo ${TMP} | grep -v "^#"` ]] ; then 
+        CONFIG=`echo ${TMP} | cut -s -f 1 -d "="` 
+        VALUE=`echo ${TMP} | cut -s -f 2 -d "="`
+        COMPARE=`grep ${CONFIG}= ${SECONDARY}`
+
+        if [[ ! -z "${COMPARE}" ]] ; then
+            if [[ ! "${COMPARE}" == "${TMP}" ]] ; then
+                COMPARE_ESC=$(sed 's/[\"\/\.\*\\]/\\&/g' <<<"${COMPARE}")
+                TMP_ESC=$(sed 's/[\"\/]/\\&/g' <<<"${TMP}")
+                # echo "${PRIMARY}=${TMP_ESC} ${SECONDARY}=${COMPARE_ESC}" >> ${CHANGES}
+                echo "${TMP_ESC}|${COMPARE_ESC}" >> ${CHANGES}
+                sed -i "s/${COMPARE_ESC}/${TMP_ESC}/g" ${MERGED}
+           fi
+        else
+            SWAP=`grep ${CONFIG} ${SECONDARY}`
+            if [[ -z "${SWAP//}" ]] ; then
+                SWAP=$(sed 's/[\"\/]/\\&/g' <<<"${TMP}")
+            fi
+            if [[ "`echo ${SWAP}|grep ${CONFIG}`" =~ ^# ]] ; then
+                sed -i "s/# ${CONFIG} is not set/${TMP}/g" ${MERGED}
+            else
+                sed -i "s/${SWAP}/${TMP}/g" ${MERGED}
+            fi
+            echo "${TMP}" >> ${ADDS}
+        fi
+    else
+        echo "${TMP}" >> ${EXCLUDES}
+    fi
+done < ${PRIMARY}
+
+echo "Done"
