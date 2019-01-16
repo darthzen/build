@@ -1,0 +1,37 @@
+#cloud-config
+debug: True
+
+disable_root: False
+
+ssh_deletekeys: False
+ssh_pwauth: True
+
+chpasswd:
+   list: |
+     root: linux
+   expire: False
+
+zypper:
+  repos:
+    - id: SUSE-CAAS-Pool
+      name: SUSE-CAAS-Pool
+      baseurl: http://repos.ash4d.com/SUSE/Products/SUSE-CAASP/ALL/x86_64/product/
+      enabled: 1
+      autorefresh: 0
+    - id: SUSE-CAAS-Updates
+      name: SUSE-CAAS-Updates
+      baseurl: http://repos.ash4d.com/SUSE/Updates/SUSE-CAASP/ALL/x86_64/update/
+      enabled: 1
+      autorefresh: 1
+
+timezone: US/Central
+     
+ntp:
+  enabled: true
+  servers:
+    - 192.168.126.1
+
+runcmd:
+   - /usr/bin/systemctl enable --now ntpd
+suse_caasp:
+  role: admin
