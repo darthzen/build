@@ -5,6 +5,8 @@ disable_root: False
 
 ssh_deletekeys: False
 ssh_pwauth: True
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDlCTmApdznpBlvNIPOkv94fqpmJLQ7mrn3CDFJeNxEGY2P2P0PFUlm3PEeI2+krfFDa5IOgSdQT8LVj12slx43t4gAw3Oh4i9BxJE2xQahG3dcR5B480Qlk4QjgzQ5HU5skCd0yrM3gcgMl8U4CgvxuDLu/mgGv+gfje/pLq0DODHwMhm/0N45anOeKB1ifg+nAegoO8YSm7R+t4NAlOA74QPY9iynzIKod2/WVCjgpnWD9x+JxPDyYv+QY80okKAUk9MKutB7FkJ2k+lS70bbnWPNyKSnI5AYSJv4dvGPvnlHWU3JAxa1dILo4gbSiEzN7/5lYtVHOw31YHgovE79 rashford@pikachu.ash4d.com
 
 chpasswd:
   list: |
