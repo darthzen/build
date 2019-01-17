@@ -1,0 +1,15 @@
+#!/bin/bash
+
+for TMP in admin worker ; do 
+    sudo mkisofs -output cc-$TMP.iso -volid cidata -joliet -rock cc-$TMP; 
+    sudo mv -fv cc-$TMP.iso /data/suse/iso/; 
+done
+
+for TMP in velum kube-master kube-worker1 kube-worker2 ; do 
+    sudo virsh destroy $TMP; 
+    cp -fv /data/suse/images/SUSE-CaaS-Platform-3.0-for-KVM-and-Xen.x86_64-3.0.0-GM.qcow2 /data/kvm-images/$TMP.qcow2; 
+    sudo virsh start $TMP; 
+done
+
+ssh-keygen -R velum -f /home/rashford/.ssh/known_hosts
+ssh-keygen -R 192.168.126.10 -f /home/rashford/.ssh/known_hosts

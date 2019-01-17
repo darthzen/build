@@ -13,25 +13,14 @@ chpasswd:
     root: $5$eriogqzq$Dg7PxHsKGzziuEGkZgkLvacjuEFeljJ.rLf.hZqKQLA
   expire: False
 
-zypper:
-  repos:
-    - id: SUSE-CAAS-Pool
-      name: SUSE-CAAS-Pool
-      baseurl: http://repos.ash4d.com/SUSE/Products/SUSE-CAASP/ALL/x86_64/product/
-      enabled: 1
-      autorefresh: 0
-    - id: SUSE-CAAS-Updates
-      name: SUSE-CAAS-Updates
-      baseurl: http://repos.ash4d.com/SUSE/Updates/SUSE-CAASP/ALL/x86_64/update/
-      enabled: 1
-      autorefresh: 1
-
 timezone: US/Central
 
-ntp:
-  enabled: true
-  servers:
-    - 192.168.126.1
+runcmd:
+  - echo "-----BEGIN CERTIFICATE-----MIIDjTCCAnWgAwIBAgIJAKX+3EWln7RkMA0GCSqGSIb3DQEBCwUAMDQxMjAwBgNVBAMMKVJNVCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkgKHJtdC5hc2g0ZC5jb20pMB4XDTE5MDExNjIxNDcxNloXDTI0MDExNTIxNDcxNlowNDEyMDAGA1UEAwwpUk1UIENlcnRpZmljYXRlIEF1dGhvcml0eSAocm10LmFzaDRkLmNvbSkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC0dcRFWP1zgS9ewhoCNEf5QfyvihdFz88ATb8+Be8l6StYId5jqOo/fO6GD2maxJVeCGQtzwAPXQ4X+AluDqUZX4ZFobKsdzA43nZ3Gz7b55DKgwu4KTU30poDktXKH9j+OhGq+K/uOLleHuNhaiJDnq4/pxomgKOyKMydXLWIT/zqDhu7w9WrwmEXDHrHt9u1wLBwpX01OTIs8FL4FLDVFOhG0ePOBCihIdjwD0WgcqRvftF0bhh3cYWIryvA8cwh7hf7Fi2dq4OpMH8Na/0ik0GeeSpNqAt/hxaAfo3PU6zKMDsTePfKhbqQfxil5A4xYn9mJzrfNZu6fa0oz6VJAgMBAAGjgaEwgZ4wDwYDVR0TAQH/BAUwAwEB/zArBglghkgBhvhCAQ0EHhYcUk1UIEdlbmVyYXRlZCBDQSBDZXJ0aWZpY2F0ZTARBglghkgBhvhCAQEEBAMCAgQwCwYDVR0PBAQDAgEGMB0GA1UdDgQWBBT8fDUUeYWDDlymDKzxp8GSBrNv7jAfBgNVHSMEGDAWgBT8fDUUeYWDDlymDKzxp8GSBrNv7jANBgkqhkiG9w0BAQsFAAOCAQEANbmjBlYAQC0ycCwlBhzjAw01DF5WPbDqqcpZVKyVT+njo1223UMVVfhPlGmDi+PnvxyNEgYYRZEmC6bVNv5lULcN3nsd5Cosb89IQBK6yYlAaF9p9aJdn8EUl2zBbIsQ/nh5l8zKdruo9ffv+11T/25WZaFi0oEk2YyJncAPLJ0djM8KQhMKLpQ3kACJ9xOYxFQ+kZOcuWJX04296nUBF81t3GKlR1HkqPPCMvcMNQ6iHobi0KSs827YHHVk74Cb7mQcc45+upM7ea2sEwRGQgjbfctLQIoFk/hiRNEAXHlFdTQu1PwSlRtkZh/j02ub83+BjbxmRSvQwKPDobcHHQ==-----END CERTIFICATE-----" > /etc/pki/trust/anchors/registration-server.pem
+  - /usr/sbin/update-ca-certificates
+  - /usr/sbin/SUSEConnect --url https://rmt.ash4d.com 
+  - /usr/sbin/transactional-update
+  - /sbin/reboot
 
 suse_caasp:
   role: cluster
